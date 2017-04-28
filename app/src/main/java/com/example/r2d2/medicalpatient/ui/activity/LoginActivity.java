@@ -1,7 +1,9 @@
-package com.example.r2d2.medicalpatient;
+package com.example.r2d2.medicalpatient.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.r2d2.medicalpatient.R;
 
 public class LoginActivity extends AppCompatActivity {
 
