@@ -7,11 +7,5 @@ import com.example.r2d2.medicalpatient.ui.base.View;
  */
 
 public interface LoginView extends View{
-    void onSuccess();
 
-    void onError(String msg);
-
-    void showDialog();
-
-    void hideDialog();
 }

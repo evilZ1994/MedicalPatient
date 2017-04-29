@@ -54,7 +54,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:id="@+id/p_register"
+        android:id="@+id/register"
         android:layout_below="@id/login"
         android:layout_centerHorizontal="true"
         android:text="@string/register"

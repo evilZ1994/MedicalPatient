@@ -1,14 +1,14 @@
 package com.example.r2d2.medicalpatient.data.response;
 
 /**
- * Created by Lollipop on 2017/4/28.
+ * Created by Lollipop on 2017/4/29.
  */
 
-public class LoginResponse {
+public class RegisterResponse {
     /**
      * status : success
-     * message : null
-     * user : {"username":"zhangsan","password":"1234","name":"zhangsan","doctor_id":"1"}
+     * message : 用户名已存在
+     * user : {"username":"username","password":"password"}
      */
 
     private String status;
@@ -41,7 +41,7 @@ public class LoginResponse {
 
     @Override
     public String toString() {
-        return "LoginResponse{" +
+        return "RegisterResponse{" +
                 "status='" + status + '\'' +
                 ", message='" + message + '\'' +
                 ", user=" + user +
@@ -50,16 +50,12 @@ public class LoginResponse {
 
     public static class UserBean {
         /**
-         * username : zhangsan
-         * password : 1234
-         * name : zhangsan
-         * doctor_id : 1
+         * username : username
+         * password : password
          */
 
         private String username;
         private String password;
-        private String name;
-        private String doctor_id;
 
         public String getUsername() {
             return username;
@@ -77,29 +73,11 @@ public class LoginResponse {
             this.password = password;
         }
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDoctor_id() {
-            return doctor_id;
-        }
-
-        public void setDoctor_id(String doctor_id) {
-            this.doctor_id = doctor_id;
-        }
-
         @Override
         public String toString() {
             return "UserBean{" +
                     "username='" + username + '\'' +
                     ", password='" + password + '\'' +
-                    ", name='" + name + '\'' +
-                    ", doctor_id='" + doctor_id + '\'' +
                     '}';
         }
     }

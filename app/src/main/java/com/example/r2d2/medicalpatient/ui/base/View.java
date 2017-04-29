@@ -5,4 +5,11 @@ package com.example.r2d2.medicalpatient.ui.base;
  */
 
 public interface View {
+    void onSuccess();
+
+    void onError(String msg);
+
+    void showDialog();
+
+    void hideDialog();
 }

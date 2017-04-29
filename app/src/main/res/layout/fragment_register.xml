@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/simpleWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/register_bg"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:paddingLeft="5dp"
+            android:id="@+id/p_username_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:paddingLeft="10dp"
+                android:id="@+id/reg_username"
+                android:inputType="textPersonName"
+                android:hint="@string/re_user_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:paddingLeft="5dp"
+            android:id="@+id/p_name_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:paddingLeft="10dp"
+                android:id="@+id/reg_name"
+                android:inputType="textPersonName"
+                android:hint="@string/re_name_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<android.support.design.widget.TextInputLayout
+            android:paddingLeft="5dp"
+            android:id="@+id/p_phone_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:paddingLeft="10dp"
+                android:id="@+id/p_reg_phone"
+                android:inputType="phone"
+                android:hint="@string/re_phone_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>-->
+
+        <android.support.design.widget.TextInputLayout
+            android:paddingLeft="5dp"
+            android:id="@+id/p_pass_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:id="@+id/reg_pass"
+                android:hint="@string/passHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:paddingLeft="5dp"
+            android:id="@+id/p_repeat_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:id="@+id/reg_pass_repeat"
+                android:hint="@string/repeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:background="@drawable/login_button_selector"
+            android:layout_gravity="center"
+            android:id="@+id/register"
+            android:text="@string/commit"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>

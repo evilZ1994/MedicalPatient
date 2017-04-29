@@ -55,7 +55,7 @@ public class LoginPresenter extends BasePresenter<LoginView>{
                 if (status.equals("success")){
                     getView().onSuccess();
                 } else{
-                    getView().onError(loginResponse.getError());
+                    getView().onError(loginResponse.getMessage());
                 }
             }
 

@@ -2,6 +2,7 @@ package com.example.r2d2.medicalpatient.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.mvp.presenter.LoginPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.LoginView;
+import com.example.r2d2.medicalpatient.ui.activity.RegisterActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 
 import javax.inject.Inject;
@@ -33,6 +35,11 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @OnClick(R.id.login)
     void login(){
         loginPresenter.login(username.getText().toString(), password.getText().toString());
+    }
+    @OnClick(R.id.register)
+    void register(){
+        Intent intent = new Intent(getContext(), RegisterActivity.class);
+        startActivity(intent);
     }
 
     @Override
