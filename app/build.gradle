@@ -20,6 +20,13 @@ android {
 }
 
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'realm-android'
+
+repositories {
+    maven {
+        url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -40,5 +47,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
     provided 'javax.annotation:javax.annotation-api:1.2'
-    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'com.uphyca:stetho_realm:2.0.0'
+    compile 'com.android.support:design:25.3.1'
 }

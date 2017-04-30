@@ -7,6 +7,10 @@ import android.util.Log;
 import com.example.r2d2.medicalpatient.injector.component.ApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.component.DaggerApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.module.ApplicationModule;
+import com.facebook.stetho.Stetho;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
+import io.realm.Realm;
 
 /**
  * Created by Lollipop on 2017/4/28.
@@ -21,6 +25,21 @@ public class App extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         setupInjector();
+        initRealm();
+
+    }
+
+    private void initRealm() {
+        Realm.init(this);
+    }
+
+    private void initStethoRealm(){
+        //Chrome上的Android（Realm）管理插件
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                .build());
     }
 
     private void setupInjector() {
