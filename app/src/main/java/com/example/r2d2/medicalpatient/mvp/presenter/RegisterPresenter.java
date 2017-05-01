@@ -1,15 +1,12 @@
 package com.example.r2d2.medicalpatient.mvp.presenter;
 
-import android.util.Log;
-
 import com.example.r2d2.medicalpatient.api.ApiService;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
 import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
 import com.example.r2d2.medicalpatient.mvp.model.DataManager;
+import com.example.r2d2.medicalpatient.mvp.model.RealmManager;
 import com.example.r2d2.medicalpatient.mvp.view.RegisterView;
 import com.example.r2d2.medicalpatient.ui.base.BasePresenter;
-
-import java.net.ConnectException;
 
 import javax.inject.Inject;
 
@@ -17,23 +14,30 @@ import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.realm.Realm;
 
 /**
  * Created by Lollipop on 2017/4/29.
+ * 协调注册的各种操作以及视图的展示
  */
 
 public class RegisterPresenter extends BasePresenter<RegisterView> {
     private DataManager dataManager;
     private Disposable disposable;
+    private RealmManager realmManager;
 
     @Inject
     ApiService apiService;
 
     @Inject
-    public RegisterPresenter(DataManager dataManager){
+    public RegisterPresenter(DataManager dataManager, RealmManager realmManager){
         this.dataManager = dataManager;
+        this.realmManager = realmManager;
     }
 
+    /**
+     * 解除订阅
+     */
     @Override
     public void detachView() {
         super.detachView();
@@ -48,6 +52,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             @Override
             public void accept(@NonNull RegisterResponse registerResponse) throws Exception {
                 if (registerResponse.getStatus().equals("success")){
+                    //注册成功后将进度框改为正在登陆
                     getView().onSuccess();
                     getView().onLogin();
                 } else {
@@ -59,13 +64,15 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         Observer<LoginResponse> observer = new Observer<LoginResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
+                //保存Disposable对象，以便之后解除订阅
+                disposable = d;
             }
 
             @Override
             public void onNext(@NonNull LoginResponse loginResponse) {
                 if (loginResponse.getStatus().equals("success")){
-                    getView().hideDialog();
-                    getView().onComplete();
+                    //登陆成功保存用户信息
+                    storeUser(loginResponse);
                 } else {
                     getView().hideDialog();
                     getView().onError(loginResponse.getMessage());
@@ -76,7 +83,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             public void onError(@NonNull Throwable e) {
                 getView().hideDialog();
                 if (e.getClass().getName().equals("java.lang.NullPointerException")){
-
+                    getView().onError("程序崩溃了..T_T");
                 } else if (e.getClass().getName().equals("java.net.ConnectException")){
                     getView().onError("哎呀..没网了！");
                 }
@@ -88,5 +95,27 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             }
         };
         dataManager.register(userString, consumer, observer);
+    }
+
+    public void storeUser(LoginResponse loginResponse){
+        //保存用户成功后的回调
+        Realm.Transaction.OnSuccess onSuccess = new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                getView().hideDialog();
+                getView().onComplete();
+            }
+        };
+        //保存用户失败后的回调
+        Realm.Transaction.OnError onError = new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                getView().hideDialog();
+                getView().onError("数据库出错了- -!");
+            }
+        };
+        Realm realm = realmManager.storeUser(loginResponse, onSuccess, onError);
+        //将realm对象传递给fragment
+        getView().closeRealm(realm);
     }
 }

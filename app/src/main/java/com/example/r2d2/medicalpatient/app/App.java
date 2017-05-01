@@ -7,8 +7,12 @@ import android.util.Log;
 import com.example.r2d2.medicalpatient.injector.component.ApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.component.DaggerApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.module.ApplicationModule;
+import com.facebook.stetho.InspectorModulesProvider;
 import com.facebook.stetho.Stetho;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
+import java.util.regex.Pattern;
 
 import io.realm.Realm;
 
@@ -26,7 +30,12 @@ public class App extends Application {
         mContext = getApplicationContext();
         setupInjector();
         initRealm();
+        initStethoRealm();
+        initTreeTen();
+    }
 
+    private void initTreeTen() {
+        AndroidThreeTen.init(this);
     }
 
     private void initRealm() {

@@ -19,12 +19,13 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Lollipop on 2017/4/28.
+ * 封装各种网络请求，网络数据操作
  */
 @Singleton
 public class DataManager {
     private final ApiService apiService;
     private final Gson gson;
-    private final String TYPE = "patient";
+    private final String TYPE = "patient"; //请求类型，代表访问服务器的是patient
 
     @Inject
     public DataManager(ApiService apiService, Gson gson){
@@ -32,6 +33,12 @@ public class DataManager {
         this.gson = gson;
     }
 
+    /**
+     * 登陆操作
+     * @param username
+     * @param password
+     * @param observer
+     */
     public void login(String username, String password, Observer<LoginResponse> observer){
         apiService.login(TYPE, username, password)
                 .subscribeOn(Schedulers.io())
@@ -39,6 +46,12 @@ public class DataManager {
                 .subscribe(observer);
     }
 
+    /**
+     * 注册操作，注册成功后继续执行登陆
+     * @param userString
+     * @param consumer
+     * @param observer
+     */
     public void register(String userString, Consumer<RegisterResponse> consumer, Observer<LoginResponse> observer){
         apiService.register(TYPE, userString)
                 .subscribeOn(Schedulers.io())

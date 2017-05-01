@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.r2d2.medicalpatient.R;
-import com.example.r2d2.medicalpatient.R2;
 import com.example.r2d2.medicalpatient.data.request.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.RegisterPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.RegisterView;
@@ -24,12 +23,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegisterFragment extends BaseFragment implements RegisterView{
     private ProgressDialog progressDialog;
+    private Realm realm;
 
     @Inject
     RegisterPresenter registerPresenter;
@@ -44,6 +45,7 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     TextInputEditText password;
     @BindView(R.id.reg_pass_repeat)
     TextInputEditText password_repeat;
+    //点击后执行注册操作
     @OnClick(R.id.register)
     void register(){
         if (password.getText().toString().equals(password_repeat.getText().toString())){
@@ -68,6 +70,7 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         ButterKnife.bind(this, view);
         getFragmentComponent().inject(this);
+        //将View传递给Presenter
         registerPresenter.attachView(this);
 
         return view;
@@ -81,7 +84,6 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     @Override
     public void onError(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-        Log.e("onError",msg);
     }
 
     @Override
@@ -95,6 +97,13 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     }
 
     @Override
+    public void closeRealm(Realm realm) {
+        this.realm = realm;
+        //在fragment的onDestroy()方法里close realm
+    }
+
+    //注册成功后修改进度框的显示
+    @Override
     public void onLogin() {
         progressDialog.setTitle("登陆");
         progressDialog.setMessage("正在登陆...");
@@ -102,7 +111,24 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
 
     @Override
     public void onComplete() {
-        //登陆成功之后的跳转动作
-        Toast.makeText(getContext(), "登陆成功！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "登陆成功啦！", Toast.LENGTH_SHORT).show();
+        //执行登陆成功之后的跳转动作
+        //直接跳转到添加Doctor的界面
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //关闭realm
+        if (!realm.isClosed()){
+            realm.close();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        //解除订阅
+        registerPresenter.detachView();
     }
 }

@@ -21,9 +21,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class LoginFragment extends BaseFragment implements LoginView {
     private ProgressDialog progressDialog;
+    private Realm realm;
 
     @Inject
     LoginPresenter loginPresenter;
@@ -32,10 +34,12 @@ public class LoginFragment extends BaseFragment implements LoginView {
     EditText username;
     @BindView(R.id.login_pass)
     EditText password;
+    //登陆按钮点击，执行登陆操作
     @OnClick(R.id.login)
     void login(){
         loginPresenter.login(username.getText().toString(), password.getText().toString());
     }
+    //注册按钮点击，跳转到注册界面
     @OnClick(R.id.register)
     void register(){
         Intent intent = new Intent(getContext(), RegisterActivity.class);
@@ -53,6 +57,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         getFragmentComponent().inject(this);
+        //将View传递给Presenter
         loginPresenter.attachView(this);
         ButterKnife.bind(this, view);
         return view;
@@ -66,12 +71,18 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @Override
     public void onDetach() {
         super.onDetach();
+        //解除订阅
         loginPresenter.detachView();
     }
 
     @Override
     public void onSuccess() {
-        Toast.makeText(getContext(), "登陆成功！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "登陆成功啦！", Toast.LENGTH_SHORT).show();
+        //执行登陆成功后的跳转动作
+        //对用户进行检查，是否已经添加医生
+        //已添加医生，进入主界面（跳转前，连接蓝牙设备）
+
+        //未添加医生，进入医生添加界面
     }
 
     @Override
@@ -87,5 +98,19 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @Override
     public void hideDialog() {
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void closeRealm(Realm realm) {
+        this.realm = realm;
+        //在fragment的onDestroy()方法中close realm
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //关闭realm
+        if (!realm.isClosed())
+            realm.close();
     }
 }
