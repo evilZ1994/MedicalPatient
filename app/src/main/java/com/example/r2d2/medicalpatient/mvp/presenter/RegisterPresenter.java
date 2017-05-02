@@ -72,6 +72,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
             public void onNext(@NonNull LoginResponse loginResponse) {
                 if (loginResponse.getStatus().equals("success")){
                     //登陆成功保存用户信息
+                    //保存用户信息到本地数据库
                     storeUser(loginResponse);
                 } else {
                     getView().hideDialog();
@@ -81,12 +82,13 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
 
             @Override
             public void onError(@NonNull Throwable e) {
+                e.printStackTrace();
                 getView().hideDialog();
-                if (e.getClass().getName().equals("java.lang.NullPointerException")){
-                    getView().onError("程序崩溃了..T_T");
-                } else if (e.getClass().getName().equals("java.net.ConnectException")){
+                if (e.getClass().getName().equals("java.net.ConnectException")) {
                     getView().onError("哎呀..没网了！");
-                }
+                }/* else if (e.getClass().getName().equals("java.lang.NullPointerException")){
+                    getView().onError("程序崩溃了..T_T");//正常原因注册失败时，flatMap会返回一个null值，导致此异常触发
+                }*/
             }
 
             @Override
@@ -98,10 +100,13 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
     }
 
     public void storeUser(LoginResponse loginResponse){
+        final LoginResponse response = loginResponse;
         //保存用户成功后的回调
         Realm.Transaction.OnSuccess onSuccess = new Realm.Transaction.OnSuccess() {
             @Override
             public void onSuccess() {
+                //保存当前登陆用户到application
+                storeCurrentUser(response.getUser().getId());
                 getView().hideDialog();
                 getView().onComplete();
             }
@@ -114,8 +119,10 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
                 getView().onError("数据库出错了- -!");
             }
         };
-        Realm realm = realmManager.storeUser(loginResponse, onSuccess, onError);
-        //将realm对象传递给fragment
-        getView().closeRealm(realm);
+        realmManager.storeUser(loginResponse, onSuccess, onError);
+    }
+
+    public void storeCurrentUser(int id){
+        realmManager.storeCurrentUser(id);
     }
 }

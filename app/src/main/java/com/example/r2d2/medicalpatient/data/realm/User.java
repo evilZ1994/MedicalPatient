@@ -10,12 +10,21 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class User extends RealmObject {
-    private String name;
     @PrimaryKey
+    private int id;
+    private String name;
     private String username;
     private String password;
     private int doctor_id;
     private Date lastLogin;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -60,7 +69,8 @@ public class User extends RealmObject {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", doctor_id=" + doctor_id +

@@ -14,6 +14,4 @@ public interface View {
     void showDialog();
 
     void hideDialog();
-
-    void closeRealm(Realm realm);
 }

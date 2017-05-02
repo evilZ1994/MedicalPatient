@@ -14,6 +14,6 @@ public class RealmModule {
 
     @Provides
     Realm provideRealm(){
-        return Realm.getInstance(new RealmConfiguration.Builder().name(REALM_NAME).build());
+        return Realm.getInstance(new RealmConfiguration.Builder().name(REALM_NAME).deleteRealmIfMigrationNeeded().build());
     }
 }

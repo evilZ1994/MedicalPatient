@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.r2d2.medicalpatient.R;
+import com.example.r2d2.medicalpatient.app.App;
+import com.example.r2d2.medicalpatient.data.realm.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.LoginPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.LoginView;
+import com.example.r2d2.medicalpatient.ui.activity.DoctorAddActivity;
 import com.example.r2d2.medicalpatient.ui.activity.RegisterActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 
@@ -25,7 +29,6 @@ import io.realm.Realm;
 
 public class LoginFragment extends BaseFragment implements LoginView {
     private ProgressDialog progressDialog;
-    private Realm realm;
 
     @Inject
     LoginPresenter loginPresenter;
@@ -83,6 +86,15 @@ public class LoginFragment extends BaseFragment implements LoginView {
         //已添加医生，进入主界面（跳转前，连接蓝牙设备）
 
         //未添加医生，进入医生添加界面
+        if (App.getCurrentUser().getDoctor_id() == 0){
+            gotoDoctorAdd();
+        }
+    }
+
+    private void gotoDoctorAdd() {
+        Intent intent = new Intent(getContext(), DoctorAddActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
@@ -101,16 +113,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     }
 
     @Override
-    public void closeRealm(Realm realm) {
-        this.realm = realm;
-        //在fragment的onDestroy()方法中close realm
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        //关闭realm
-        if (!realm.isClosed())
-            realm.close();
     }
 }

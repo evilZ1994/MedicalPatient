@@ -1,6 +1,8 @@
 package com.example.r2d2.medicalpatient.mvp.model;
 
 import com.example.r2d2.medicalpatient.api.ApiService;
+import com.example.r2d2.medicalpatient.data.response.DoctorAddResponse;
+import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
 import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
 import com.google.gson.Gson;
@@ -68,6 +70,31 @@ public class DataManager {
                         return null;
                     }
                 })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 查找医生
+     * @param username 医生用户名
+     * @param observer
+     */
+    public void searchDoctor(String username, Observer<DoctorSearchResponse> observer){
+        apiService.searchDoctor("search", username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 添加医生
+     * @param id
+     * @param doctor_id
+     * @param observer
+     */
+    public void addDoctor(int id, int doctor_id, Observer<DoctorAddResponse> observer){
+        apiService.addDoctor("add", id, doctor_id)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }

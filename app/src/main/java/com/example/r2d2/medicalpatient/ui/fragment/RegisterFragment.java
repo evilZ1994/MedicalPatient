@@ -2,6 +2,7 @@ package com.example.r2d2.medicalpatient.ui.fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.data.request.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.RegisterPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.RegisterView;
+import com.example.r2d2.medicalpatient.ui.activity.DoctorAddActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 import com.google.gson.Gson;
 
@@ -30,7 +32,6 @@ import io.realm.Realm;
  */
 public class RegisterFragment extends BaseFragment implements RegisterView{
     private ProgressDialog progressDialog;
-    private Realm realm;
 
     @Inject
     RegisterPresenter registerPresenter;
@@ -96,12 +97,6 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
         progressDialog.dismiss();
     }
 
-    @Override
-    public void closeRealm(Realm realm) {
-        this.realm = realm;
-        //在fragment的onDestroy()方法里close realm
-    }
-
     //注册成功后修改进度框的显示
     @Override
     public void onLogin() {
@@ -114,15 +109,18 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
         Toast.makeText(getContext(), "登陆成功啦！", Toast.LENGTH_SHORT).show();
         //执行登陆成功之后的跳转动作
         //直接跳转到添加Doctor的界面
+        gotoDoctorAdd();
+    }
+
+    private void gotoDoctorAdd() {
+        Intent intent = new Intent(getContext(), DoctorAddActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //关闭realm
-        if (!realm.isClosed()){
-            realm.close();
-        }
     }
 
     @Override

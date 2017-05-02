@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.r2d2.medicalpatient.data.realm.User;
 import com.example.r2d2.medicalpatient.injector.component.ApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.component.DaggerApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.module.ApplicationModule;
@@ -23,6 +24,8 @@ import io.realm.Realm;
 public class App extends Application {
     private static Context mContext;
     private static ApplicationComponent mApplicationComponent;
+    //当前登陆用户
+    private static User currentUser;
 
     @Override
     public void onCreate() {
@@ -61,5 +64,14 @@ public class App extends Application {
 
     public static ApplicationComponent getApplicationComponent(){
         return mApplicationComponent;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    //登陆后调用该方法，保存当前登陆用户
+    public static void setCurrentUser(User user) {
+        currentUser = user;
     }
 }

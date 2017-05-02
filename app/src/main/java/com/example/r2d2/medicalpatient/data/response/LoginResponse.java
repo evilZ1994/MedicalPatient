@@ -50,16 +50,25 @@ public class LoginResponse {
 
     public static class UserBean {
         /**
+         * id : 1
          * username : zhangsan
          * password : 1234
          * name : zhangsan
          * doctor_id : 1
          */
-
+        private int id;
         private String username;
         private String password;
         private String name;
         private String doctor_id;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public String getUsername() {
             return username;
@@ -96,7 +105,8 @@ public class LoginResponse {
         @Override
         public String toString() {
             return "UserBean{" +
-                    "username='" + username + '\'' +
+                    "id=" + id +
+                    ", username='" + username + '\'' +
                     ", password='" + password + '\'' +
                     ", name='" + name + '\'' +
                     ", doctor_id='" + doctor_id + '\'' +
