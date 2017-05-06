@@ -3,9 +3,12 @@ package com.example.r2d2.medicalpatient.mvp.model;
 import android.util.Log;
 
 import com.example.r2d2.medicalpatient.app.App;
+import com.example.r2d2.medicalpatient.data.realm.Data;
 import com.example.r2d2.medicalpatient.data.realm.User;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
 import com.google.gson.Gson;
+
+import org.threeten.bp.LocalDateTime;
 
 import java.util.Date;
 
@@ -89,4 +92,5 @@ public class RealmManager {
         //同时更新application里的用户
         storeCurrentUser(id);
     }
+
 }

@@ -13,6 +13,7 @@ import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
+import java.io.InputStream;
 import java.util.regex.Pattern;
 
 import io.realm.Realm;
@@ -23,14 +24,18 @@ import io.realm.Realm;
 
 public class App extends Application {
     private static Context mContext;
+    private static App app;
     private static ApplicationComponent mApplicationComponent;
     //当前登陆用户
     private static User currentUser;
+    //蓝牙数据流，找不到其他方式可以传递给service了
+    private InputStream inputStream;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        app = this;
         setupInjector();
         initRealm();
         initStethoRealm();
@@ -62,6 +67,10 @@ public class App extends Application {
         return mContext;
     }
 
+    public static App getApp(){
+        return app;
+    }
+
     public static ApplicationComponent getApplicationComponent(){
         return mApplicationComponent;
     }
@@ -73,5 +82,13 @@ public class App extends Application {
     //登陆后调用该方法，保存当前登陆用户
     public static void setCurrentUser(User user) {
         currentUser = user;
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 }

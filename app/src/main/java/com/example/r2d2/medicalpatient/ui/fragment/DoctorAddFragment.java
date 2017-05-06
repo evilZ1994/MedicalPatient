@@ -1,6 +1,7 @@
 package com.example.r2d2.medicalpatient.ui.fragment;
 
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -21,6 +22,7 @@ import com.example.r2d2.medicalpatient.app.App;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
 import com.example.r2d2.medicalpatient.mvp.presenter.DoctorAddPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.DoctorAddView;
+import com.example.r2d2.medicalpatient.ui.activity.BluetoothActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 
 import javax.inject.Inject;
@@ -75,6 +77,11 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
         addBtn.setEnabled(false);
         showDialog();
         doctorAddPresenter.addDoctor(App.getCurrentUser().getId(), Integer.valueOf(doctor.getId()));
+    }
+    @OnClick(R.id.next)
+    void next(){
+        Intent intent = new Intent(getContext(), BluetoothActivity.class);
+        startActivity(intent);
     }
 
     //隐藏组件

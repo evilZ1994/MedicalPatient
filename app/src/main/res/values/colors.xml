@@ -14,4 +14,5 @@
     <color name="gray">#b6b6b6</color>
     <color name="dark">#000000</color>
     <color name="deepGray">#8a8a8a</color>
+    <color name="lightGray">#e8e8e8</color>
 </resources>

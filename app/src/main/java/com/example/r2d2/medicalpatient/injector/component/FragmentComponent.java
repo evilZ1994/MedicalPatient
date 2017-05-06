@@ -2,6 +2,7 @@ package com.example.r2d2.medicalpatient.injector.component;
 
 import com.example.r2d2.medicalpatient.injector.module.FragmentModule;
 import com.example.r2d2.medicalpatient.injector.scope.PerActivity;
+import com.example.r2d2.medicalpatient.ui.fragment.BluetoothFragment;
 import com.example.r2d2.medicalpatient.ui.fragment.DoctorAddFragment;
 import com.example.r2d2.medicalpatient.ui.fragment.LoginFragment;
 import com.example.r2d2.medicalpatient.ui.fragment.RegisterFragment;
@@ -20,4 +21,6 @@ public interface FragmentComponent {
     void inject(RegisterFragment registerFragment);
 
     void inject(DoctorAddFragment doctorAddFragment);
+
+    void inject(BluetoothFragment bluetoothFragment);
 }
