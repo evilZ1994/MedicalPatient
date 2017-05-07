@@ -1,5 +1,6 @@
 package com.example.r2d2.medicalpatient.api;
 
+import com.example.r2d2.medicalpatient.data.response.DataUploadResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorAddResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
@@ -38,4 +39,8 @@ public interface ApiService {
     Observable<DoctorAddResponse> addDoctor(@Query("type") String type,
                                             @Query("id") int id,
                                             @Query("doctor_id") int doctor_id);
+
+    @FormUrlEncoded
+    @POST("DataUploadServlet")
+    Observable<DataUploadResponse> uploadData(@Field("data") String data);
 }

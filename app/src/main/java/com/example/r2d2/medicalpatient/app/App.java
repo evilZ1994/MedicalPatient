@@ -2,19 +2,16 @@ package com.example.r2d2.medicalpatient.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
-import com.example.r2d2.medicalpatient.data.realm.User;
+import com.example.r2d2.medicalpatient.data.bean.User;
 import com.example.r2d2.medicalpatient.injector.component.ApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.component.DaggerApplicationComponent;
 import com.example.r2d2.medicalpatient.injector.module.ApplicationModule;
-import com.facebook.stetho.InspectorModulesProvider;
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.io.InputStream;
-import java.util.regex.Pattern;
 
 import io.realm.Realm;
 
@@ -26,7 +23,7 @@ public class App extends Application {
     private static Context mContext;
     private static App app;
     private static ApplicationComponent mApplicationComponent;
-    //当前登陆用户
+    //当前登陆用户,bean包下的User，不是realm包下的User
     private static User currentUser;
     //蓝牙数据流，找不到其他方式可以传递给service了
     private InputStream inputStream;

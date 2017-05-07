@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name=".service.BluetoothService"/>
-        <activity android:name=".ui.activity.BluetoothActivity">
+        <service android:name=".service.DataUploadService"/>
+        <activity android:name=".ui.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         </activity>
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.DoctorAddActivity" />
-        <!--<activity android:name=".ui.activity.BluetoothActivity"></activity>-->
+        <activity android:name=".ui.activity.BluetoothActivity"/>
+        <activity android:name=".ui.activity.MainActivity"/>
     </application>
 
 </manifest>

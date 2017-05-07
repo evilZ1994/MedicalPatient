@@ -80,8 +80,11 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
     }
     @OnClick(R.id.next)
     void next(){
+        //跳转到蓝牙界面
         Intent intent = new Intent(getContext(), BluetoothActivity.class);
         startActivity(intent);
+        //结束当前Activity
+        getActivity().finish();
     }
 
     //隐藏组件

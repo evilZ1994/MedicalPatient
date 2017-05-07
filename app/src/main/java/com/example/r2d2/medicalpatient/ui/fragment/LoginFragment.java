@@ -16,6 +16,7 @@ import com.example.r2d2.medicalpatient.app.App;
 import com.example.r2d2.medicalpatient.data.realm.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.LoginPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.LoginView;
+import com.example.r2d2.medicalpatient.ui.activity.BluetoothActivity;
 import com.example.r2d2.medicalpatient.ui.activity.DoctorAddActivity;
 import com.example.r2d2.medicalpatient.ui.activity.RegisterActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
@@ -83,12 +84,15 @@ public class LoginFragment extends BaseFragment implements LoginView {
         Toast.makeText(getContext(), "登陆成功啦！", Toast.LENGTH_SHORT).show();
         //执行登陆成功后的跳转动作
         //对用户进行检查，是否已经添加医生
-        //已添加医生，进入主界面（跳转前，连接蓝牙设备）
-
         //未添加医生，进入医生添加界面
         if (App.getCurrentUser().getDoctor_id() == 0){
             gotoDoctorAdd();
+        } else {
+            //已添加医生，进入主界面（跳转前，连接蓝牙设备）
+            startActivity(new Intent(getContext(), BluetoothActivity.class));
         }
+        //结束当前Activity
+        getActivity().finish();
     }
 
     private void gotoDoctorAdd() {

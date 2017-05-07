@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.example.r2d2.medicalpatient.app.App;
 import com.example.r2d2.medicalpatient.data.realm.Data;
+import com.example.r2d2.medicalpatient.data.realm.DataCache;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.threeten.bp.LocalDateTime;
 
@@ -187,19 +189,33 @@ public class BluetoothManager {
                 line = reader.readLine();
                 Realm realm = Realm.getInstance(new RealmConfiguration.Builder().name("medical.realm").deleteRealmIfMigrationNeeded().build());
                 while (reader!=null && (line=reader.readLine())!=null){
-                    JSONObject dataJson = new JSONObject(line);
-                    final double angle = dataJson.getDouble("angle");
-                    final int pressure = dataJson.getInt("pressure");
-                    final double temperature = dataJson.getDouble("temperature");
-                    int pulse = dataJson.getInt("pulse");
-                    final String create_time = dataJson.getString("create_time");
+                    final JSONObject dataJson = new JSONObject(line);
                     //写入数据库
-                    realm.executeTransactionAsync(new Realm.Transaction() {
+                    realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
-                            Data data = new Data(pressure, angle, temperature, pressure, create_time);
-                            Log.i("data", data.toString());
-                            realm.copyToRealm(data);
+                            try {
+                                double angle = dataJson.getDouble("angle");
+                                int pressure = dataJson.getInt("pressure");
+                                double temperature = dataJson.getDouble("temperature");
+                                int pulse = dataJson.getInt("pulse");
+                                String create_time = dataJson.getString("create_time");
+                                Data data = new Data(pressure, angle, temperature, pulse, create_time);
+                                Log.i("data", data.toString());
+                                //缓存数据
+                                //DataCache dataCache = new DataCache(pressure, angle, temperature, pulse, create_time, App.getCurrentUser().getId());
+                                DataCache dataCache = new DataCache();
+                                dataCache.setPressure(pressure);
+                                dataCache.setAngle(angle);
+                                dataCache.setTemperature(temperature);
+                                dataCache.setPulse(pulse);
+                                dataCache.setCreate_time(create_time);
+                                dataCache.setPatient_id(App.getCurrentUser().getId());
+                                //realm.copyToRealm(data);
+                                realm.copyToRealm(dataCache);
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                     });
                 }

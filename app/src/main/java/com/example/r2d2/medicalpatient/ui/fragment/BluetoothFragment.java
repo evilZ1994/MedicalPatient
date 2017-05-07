@@ -26,6 +26,7 @@ import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.mvp.presenter.BluetoothPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.BluetoothView;
 import com.example.r2d2.medicalpatient.service.BluetoothService;
+import com.example.r2d2.medicalpatient.ui.activity.MainActivity;
 import com.example.r2d2.medicalpatient.ui.adapter.DevicesAdapter;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 
@@ -235,6 +236,9 @@ public class BluetoothFragment extends BaseFragment implements BluetoothView{
         getActivity().startService(intent);
         Toast.makeText(getContext(), "连接成功，服务启动", Toast.LENGTH_SHORT).show();
         hideDialog();
+        //跳转到主界面
+        startActivity(new Intent(getContext(), MainActivity.class));
+        getActivity().finish();
     }
 
     /**

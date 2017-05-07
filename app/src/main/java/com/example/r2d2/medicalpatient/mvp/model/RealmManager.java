@@ -73,7 +73,14 @@ public class RealmManager {
      */
     public void storeCurrentUser(int id){
         User user = getUserById(id);
-        App.setCurrentUser(user);
+        com.example.r2d2.medicalpatient.data.bean.User userBean = new com.example.r2d2.medicalpatient.data.bean.User();
+        userBean.setId(user.getId());
+        userBean.setName(user.getName());
+        userBean.setUsername(user.getUsername());
+        userBean.setPassword(user.getPassword());
+        userBean.setDoctor_id(user.getDoctor_id());
+        userBean.setLastLogin(user.getLastLogin());
+        App.setCurrentUser(userBean);
     }
 
     /**

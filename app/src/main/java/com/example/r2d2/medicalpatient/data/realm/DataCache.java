@@ -1,32 +1,40 @@
 package com.example.r2d2.medicalpatient.data.realm;
 
-import org.threeten.bp.LocalDateTime;
-
-import java.util.Date;
-
+import io.realm.RealmModel;
 import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
 
 /**
- * Created by Lollipop on 2017/5/6.
+ * Created by Lollipop on 2017/5/7.
  */
-
-public class Data extends RealmObject{
+@RealmClass
+public class DataCache implements RealmModel{
     private int pressure;
     private double angle;
     private double temperature;
     private int pulse;
     private String create_time;
+    private int patient_id;
 
-    public Data(){
+    public DataCache(){
         super();
     }
 
-    public Data(int pressure, double angle, double temperature, int pulse, String create_time) {
+    public DataCache(int pressure, double angle, double temperature, int pulse, String create_time, int patient_id) {
         this.pressure = pressure;
         this.angle = angle;
         this.temperature = temperature;
         this.pulse = pulse;
         this.create_time = create_time;
+        this.patient_id = patient_id;
+    }
+
+    public int getPatient_id() {
+        return patient_id;
+    }
+
+    public void setPatient_id(int patient_id) {
+        this.patient_id = patient_id;
     }
 
     public int getPressure() {
@@ -57,8 +65,8 @@ public class Data extends RealmObject{
         return pulse;
     }
 
-    public void setPulse(int pulsse) {
-        this.pulse = pulsse;
+    public void setPulse(int pulse) {
+        this.pulse = pulse;
     }
 
     public String getCreate_time() {
@@ -67,16 +75,5 @@ public class Data extends RealmObject{
 
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
-    }
-
-    @Override
-    public String toString() {
-        return "Data{" +
-                "pressure=" + pressure +
-                ", angle=" + angle +
-                ", temperature=" + temperature +
-                ", pulse=" + pulse +
-                ", create_time=" + create_time +
-                '}';
     }
 }

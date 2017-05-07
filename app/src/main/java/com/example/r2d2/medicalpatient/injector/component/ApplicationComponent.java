@@ -11,6 +11,8 @@ import com.example.r2d2.medicalpatient.injector.module.RealmModule;
 import com.example.r2d2.medicalpatient.mvp.model.BluetoothManager;
 import com.example.r2d2.medicalpatient.mvp.model.DataManager;
 import com.example.r2d2.medicalpatient.mvp.model.RealmManager;
+import com.example.r2d2.medicalpatient.service.DataUploadService;
+import com.example.r2d2.medicalpatient.ui.activity.MainActivity;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -39,4 +41,6 @@ public interface ApplicationComponent {
     BluetoothAdapter bluetoothAdapter();
 
     BluetoothManager bluetoothManager();
+
+    void inject(DataUploadService dataUploadService);
 }
