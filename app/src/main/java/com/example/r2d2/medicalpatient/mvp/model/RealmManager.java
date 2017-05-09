@@ -111,44 +111,5 @@ public class RealmManager {
         storeCurrentUser(id);
     }
 
-    public List<Data> getData(){
-        RealmResults<Data> results = realm.where(Data.class).findAll();
-        int currentMinute = DateUtil.getMinute(new Date());
-        List<Data> list = new ArrayList<>();
-        if (results.size()>0) {
-            //超过12条数据
-            if (results.size()>12) {
-                for (int i = results.size() - 12; i < results.size(); i++) {
-                    Data data = results.get(i);
-                    Date date = DateUtil.stringToDate(data.getCreate_time());
-                    int minute = DateUtil.getMinute(date);
-                    if (minute == currentMinute){
-                        list.add(data);
-                    }
-                }
-                return list;
-            }else {//数据不足12条,时间起点不确定（第一次与设备连接）
-                List<Data> list2 = new ArrayList<Data>();
-                for (Data data : results){
-                    int minute = DateUtil.getMinute(DateUtil.stringToDate(data.getCreate_time()));
-                    if (minute==currentMinute){
-                        list2.add(data);
-                    }
-                }
-                if (list2.size()>0){
-                    int index = DateUtil.getSecond(DateUtil.stringToDate(list2.get(0).getCreate_time()))/5;
-                    for (int i=0; i<index; i++){
-                        list.add(new Data());
-                    }
-                    for (int i=0; i<list2.size(); i++){
-                        list.add(list2.get(i));
-                    }
-                }
-                return list;
-            }
-        }else {
-            //没有数据
-            return list;
-        }
-    }
+
 }

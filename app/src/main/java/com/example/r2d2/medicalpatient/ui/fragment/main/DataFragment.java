@@ -1,17 +1,20 @@
 package com.example.r2d2.medicalpatient.ui.fragment.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.mvp.presenter.DataPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.DataView;
+import com.example.r2d2.medicalpatient.ui.activity.DataDetailActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -44,6 +48,14 @@ public class DataFragment extends BaseFragment implements DataView{
     @Inject
     DataPresenter dataPresenter;
 
+    @BindView(R.id.pressure_layout)
+    LinearLayout pressureLayout;
+    @BindView(R.id.temperature_layout)
+    LinearLayout temperatureLayout;
+    @BindView(R.id.angle_layout)
+    LinearLayout angleLayout;
+    @BindView(R.id.pulse_layout)
+    LinearLayout pulseLayout;
     @BindView(R.id.data_pressure)
     TextView dataPressure;
     @BindView(R.id.data_angle)
@@ -66,6 +78,12 @@ public class DataFragment extends BaseFragment implements DataView{
         getFragmentComponent().inject(this);
         ButterKnife.bind(this, view);
         dataPresenter.attachView(this);
+        //绑定监听器
+        OnDataClickListener listener = new OnDataClickListener();
+        pressureLayout.setOnClickListener(listener);
+        angleLayout.setOnClickListener(listener);
+        temperatureLayout.setOnClickListener(listener);
+        pulseLayout.setOnClickListener(listener);
         //初始化图表
         generate(datas);
         //刷新图表
@@ -102,12 +120,16 @@ public class DataFragment extends BaseFragment implements DataView{
 
     @Override
     public void refreshData(Map<String, Object> map) {
-        dataPressure.setText(map.get("pressure").toString());
-        dataAngle.setText(map.get("angle").toString());
-        dataTemperature.setText(map.get("temperature").toString());
-        dataPulse.setText(map.get("pulse").toString());
+        dataPressure.setText(map.get("pressure")+"Pa");
+        dataAngle.setText(map.get("angle")+"度");
+        dataTemperature.setText(map.get("temperature")+"℃");
+        dataPulse.setText(map.get("pulse")+"次/分");
     }
 
+    /**
+     * 图表生成
+     * @param datas 数据
+     */
     private void generate(List<Integer> datas) {
         int numValues = 12;
 
@@ -145,5 +167,29 @@ public class DataFragment extends BaseFragment implements DataView{
         chartView.setCurrentViewport(v);
 
         chartView.setZoomType(ZoomType.HORIZONTAL);
+    }
+
+    private class OnDataClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            int id = view.getId();
+            Intent intent = new Intent(getContext(), DataDetailActivity.class);
+            switch (id){
+                case R.id.pressure_layout:
+                    intent.putExtra("tag", "pressure");
+                    break;
+                case R.id.temperature_layout:
+                    intent.putExtra("tag", "temperature");
+                    break;
+                case R.id.angle_layout:
+                    intent.putExtra("tag", "angle");
+                    break;
+                case R.id.pulse_layout:
+                    intent.putExtra("tag", "pulse");
+                    break;
+            }
+            startActivity(intent);
+        }
     }
 }

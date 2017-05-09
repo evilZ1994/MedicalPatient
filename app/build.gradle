@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -46,11 +47,12 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.facebook.stetho:stetho:1.4.1'
     compile 'com.uphyca:stetho_realm:2.0.0'
+    compile 'io.realm:android-adapters:2.0.0'
     compile 'com.android.support:design:25.3.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
     provided 'javax.annotation:javax.annotation-api:1.2'
-    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
 }

@@ -40,6 +40,8 @@ public class DataUploadService extends Service {
     @Inject
     Realm realm;
 
+    private RealmResults<DataCache> results;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -55,10 +57,11 @@ public class DataUploadService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("datauploadservice", "upload data");
+        results = realm.where(DataCache.class).findAll();
         uploadData();
-        realm.addChangeListener(new RealmChangeListener<Realm>() {
+        results.addChangeListener(new RealmChangeListener<RealmResults<DataCache>>() {
             @Override
-            public void onChange(Realm element) {
+            public void onChange(RealmResults<DataCache> element) {
                 uploadData();
             }
         });
@@ -66,7 +69,6 @@ public class DataUploadService extends Service {
     }
 
     private void uploadData(){
-        final RealmResults<DataCache> results = realm.where(DataCache.class).findAll();
         JSONArray dataArray;
         if (results.size()>0) {
             dataArray = new JSONArray();
@@ -100,7 +102,7 @@ public class DataUploadService extends Service {
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
                                     public void execute(Realm realm) {
-                                        results.deleteAllFromRealm();
+                                        onDelete();
                                     }
                                 });
                             }
@@ -117,5 +119,9 @@ public class DataUploadService extends Service {
                         }
                     });
         }
+    }
+
+    private void onDelete(){
+        results.deleteAllFromRealm();
     }
 }

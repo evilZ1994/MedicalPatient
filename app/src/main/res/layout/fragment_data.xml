@@ -2,10 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.r2d2.medicalpatient.ui.fragment.main.DataFragment">
 
     <include layout="@layout/data_card"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_point_blue"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="压强变化"
+            android:textColor="@color/simpleBlue" />
+    </LinearLayout>
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart"

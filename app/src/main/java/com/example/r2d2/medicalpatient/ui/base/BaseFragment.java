@@ -27,7 +27,7 @@ public abstract class BaseFragment extends Fragment {
 
     public FragmentComponent getFragmentComponent(){
         if (fragmentComponent == null){
-            fragmentComponent = DaggerFragmentComponent.builder().fragmentModule(new FragmentModule(this))
+            fragmentComponent = DaggerFragmentComponent.builder()
                     .applicationComponent(App.getApplicationComponent()).build();
         }
         return fragmentComponent;

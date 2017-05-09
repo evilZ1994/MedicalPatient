@@ -118,6 +118,7 @@
             android:layout_height="wrap_content" />
         <android.support.v7.widget.ListViewCompat
             android:id="@+id/bonded_list_view"
+            android:listSelector="@drawable/list_item_selector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.ListViewCompat>
@@ -137,6 +138,7 @@
             android:layout_height="wrap_content" />
         <android.support.v7.widget.ListViewCompat
             android:id="@+id/usable_list_view"
+            android:listSelector="@drawable/list_item_selector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.ListViewCompat>
