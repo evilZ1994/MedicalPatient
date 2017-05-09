@@ -180,7 +180,6 @@ public class BluetoothManager {
      * 读取蓝牙设备发送过来的数据，并存入Realm数据库
      */
     public void readData(final InputStream inputStream, Consumer<String> consumer){
-        Log.i("readdata", "read data");
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
@@ -201,17 +200,9 @@ public class BluetoothManager {
                                 int pulse = dataJson.getInt("pulse");
                                 String create_time = dataJson.getString("create_time");
                                 Data data = new Data(pressure, angle, temperature, pulse, create_time);
-                                Log.i("data", data.toString());
                                 //缓存数据
-                                //DataCache dataCache = new DataCache(pressure, angle, temperature, pulse, create_time, App.getCurrentUser().getId());
-                                DataCache dataCache = new DataCache();
-                                dataCache.setPressure(pressure);
-                                dataCache.setAngle(angle);
-                                dataCache.setTemperature(temperature);
-                                dataCache.setPulse(pulse);
-                                dataCache.setCreate_time(create_time);
-                                dataCache.setPatient_id(App.getCurrentUser().getId());
-                                //realm.copyToRealm(data);
+                                DataCache dataCache = new DataCache(pressure, angle, temperature, pulse, create_time, App.getCurrentUser().getId());
+                                realm.copyToRealm(data);
                                 realm.copyToRealm(dataCache);
                             } catch (JSONException e1) {
                                 e1.printStackTrace();

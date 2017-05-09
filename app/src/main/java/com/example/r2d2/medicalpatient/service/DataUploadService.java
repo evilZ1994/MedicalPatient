@@ -66,9 +66,7 @@ public class DataUploadService extends Service {
     }
 
     private void uploadData(){
-        Log.i("data", "uploading");
         final RealmResults<DataCache> results = realm.where(DataCache.class).findAll();
-        Log.i("results size", results.size()+"");
         JSONArray dataArray;
         if (results.size()>0) {
             dataArray = new JSONArray();
@@ -86,7 +84,6 @@ public class DataUploadService extends Service {
                     e.printStackTrace();
                 }
                 dataArray.put(data);
-                Log.i("request", dataArray.toString());
             }
             Observable<DataUploadResponse> observable = apiService.uploadData(dataArray.toString());
             observable.subscribeOn(Schedulers.io())

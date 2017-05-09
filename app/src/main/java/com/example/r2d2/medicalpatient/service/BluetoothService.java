@@ -44,7 +44,6 @@ public class BluetoothService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("bluetooth service", "started");
         InputStream inputStream = App.getApp().getInputStream();
         Consumer<String> consumer = new Consumer<String>() {
             @Override

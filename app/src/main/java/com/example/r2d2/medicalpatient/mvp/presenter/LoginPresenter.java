@@ -26,9 +26,6 @@ public class LoginPresenter extends BasePresenter<LoginView>{
     private RealmManager realmManager;
 
     @Inject
-    ApiService apiService;
-
-    @Inject
     public LoginPresenter(DataManager dataManager, RealmManager realmManager){
         this.dataManager = dataManager;
         this.realmManager = realmManager;

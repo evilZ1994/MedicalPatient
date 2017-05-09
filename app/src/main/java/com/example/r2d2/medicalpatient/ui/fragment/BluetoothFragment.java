@@ -278,6 +278,10 @@ public class BluetoothFragment extends BaseFragment implements BluetoothView{
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            //如果正在搜索，取消当前搜索
+            if (bluetoothAdapter.isDiscovering()){
+                bluetoothAdapter.cancelDiscovery();
+            }
             Map<String, String> deviceInfo = adapter.getItem(i);
             String address = deviceInfo.get("address");
             bluetoothPresenter.connect(address);

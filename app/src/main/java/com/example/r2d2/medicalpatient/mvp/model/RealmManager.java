@@ -1,22 +1,33 @@
 package com.example.r2d2.medicalpatient.mvp.model;
 
+
 import android.util.Log;
 
 import com.example.r2d2.medicalpatient.app.App;
 import com.example.r2d2.medicalpatient.data.realm.Data;
 import com.example.r2d2.medicalpatient.data.realm.User;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
+import com.example.r2d2.medicalpatient.util.DateUtil;
 import com.google.gson.Gson;
 
-import org.threeten.bp.LocalDateTime;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dagger.Reusable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
@@ -100,4 +111,44 @@ public class RealmManager {
         storeCurrentUser(id);
     }
 
+    public List<Data> getData(){
+        RealmResults<Data> results = realm.where(Data.class).findAll();
+        int currentMinute = DateUtil.getMinute(new Date());
+        List<Data> list = new ArrayList<>();
+        if (results.size()>0) {
+            //超过12条数据
+            if (results.size()>12) {
+                for (int i = results.size() - 12; i < results.size(); i++) {
+                    Data data = results.get(i);
+                    Date date = DateUtil.stringToDate(data.getCreate_time());
+                    int minute = DateUtil.getMinute(date);
+                    if (minute == currentMinute){
+                        list.add(data);
+                    }
+                }
+                return list;
+            }else {//数据不足12条,时间起点不确定（第一次与设备连接）
+                List<Data> list2 = new ArrayList<Data>();
+                for (Data data : results){
+                    int minute = DateUtil.getMinute(DateUtil.stringToDate(data.getCreate_time()));
+                    if (minute==currentMinute){
+                        list2.add(data);
+                    }
+                }
+                if (list2.size()>0){
+                    int index = DateUtil.getSecond(DateUtil.stringToDate(list2.get(0).getCreate_time()))/5;
+                    for (int i=0; i<index; i++){
+                        list.add(new Data());
+                    }
+                    for (int i=0; i<list2.size(); i++){
+                        list.add(list2.get(i));
+                    }
+                }
+                return list;
+            }
+        }else {
+            //没有数据
+            return list;
+        }
+    }
 }
