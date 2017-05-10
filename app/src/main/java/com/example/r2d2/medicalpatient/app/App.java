@@ -13,6 +13,7 @@ import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.io.InputStream;
 
+import cn.jpush.im.android.api.JMessageClient;
 import io.realm.Realm;
 
 /**
@@ -37,6 +38,12 @@ public class App extends Application {
         initRealm();
         initStethoRealm();
         initTreeTen();
+        initJMessage();
+    }
+
+    private void initJMessage() {
+        //初始化服务，并启用消息漫游
+        JMessageClient.init(this, true);
     }
 
     private void initTreeTen() {

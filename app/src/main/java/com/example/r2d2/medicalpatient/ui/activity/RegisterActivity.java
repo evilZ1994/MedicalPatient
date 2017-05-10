@@ -11,5 +11,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //销毁前结束LoginActivity
+        LoginActivity.instance.finish();
     }
 }

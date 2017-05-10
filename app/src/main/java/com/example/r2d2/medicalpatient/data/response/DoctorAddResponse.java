@@ -15,6 +15,7 @@ public class DoctorAddResponse {
     private String status;
     private int doctor_id;
     private String doctor_name;
+    private String doctor_username;
 
     public String getStatus() {
         return status;
@@ -38,5 +39,13 @@ public class DoctorAddResponse {
 
     public void setDoctor_name(String doctor_name) {
         this.doctor_name = doctor_name;
+    }
+
+    public String getDoctor_username() {
+        return doctor_username;
+    }
+
+    public void setDoctor_username(String doctor_username) {
+        this.doctor_username = doctor_username;
     }
 }

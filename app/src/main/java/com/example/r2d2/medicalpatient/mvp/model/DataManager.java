@@ -7,10 +7,17 @@ import com.example.r2d2.medicalpatient.data.response.LoginResponse;
 import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,10 +59,10 @@ public class DataManager {
      * 注册操作，注册成功后继续执行登陆
      * @param userString
      * @param consumer
-     * @param observer
+     * @param
      */
-    public void register(String userString, Consumer<RegisterResponse> consumer, Observer<LoginResponse> observer){
-        apiService.register(TYPE, userString)
+    public void register(String userString, Consumer<RegisterResponse> consumer){
+        /*apiService.register(TYPE, userString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(consumer)
@@ -71,7 +78,12 @@ public class DataManager {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .subscribe(observer);*/
+
+        apiService.register(TYPE, userString)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(consumer);
     }
 
     /**

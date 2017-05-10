@@ -61,6 +61,8 @@ public class LoginResponse {
         private String password;
         private String name;
         private String doctor_id;
+        private String doctor_username;
+        private String doctor_name;
 
         public int getId() {
             return id;
@@ -102,6 +104,22 @@ public class LoginResponse {
             this.doctor_id = doctor_id;
         }
 
+        public String getDoctor_username() {
+            return doctor_username;
+        }
+
+        public void setDoctor_username(String doctor_username) {
+            this.doctor_username = doctor_username;
+        }
+
+        public String getDoctor_name() {
+            return doctor_name;
+        }
+
+        public void setDoctor_name(String doctor_name) {
+            this.doctor_name = doctor_name;
+        }
+
         @Override
         public String toString() {
             return "UserBean{" +
@@ -110,6 +128,8 @@ public class LoginResponse {
                     ", password='" + password + '\'' +
                     ", name='" + name + '\'' +
                     ", doctor_id='" + doctor_id + '\'' +
+                    ", doctor_username='" + doctor_username + '\'' +
+                    ", doctor_name='" + doctor_name + '\'' +
                     '}';
         }
     }

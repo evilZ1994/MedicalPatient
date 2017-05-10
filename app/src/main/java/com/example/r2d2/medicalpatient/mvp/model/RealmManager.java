@@ -61,8 +61,11 @@ public class RealmManager {
                 user.setUsername(response.getUser().getUsername());
                 user.setName(response.getUser().getName());
                 user.setPassword(response.getUser().getPassword());
-                if (response.getUser().getDoctor_id() != null)
+                if (response.getUser().getDoctor_id() != null) {
                     user.setDoctor_id(Integer.valueOf(response.getUser().getDoctor_id()));
+                    user.setDoctor_username(response.getUser().getDoctor_username());
+                    user.setDoctor_name(response.getUser().getDoctor_name());
+                }
                 user.setLastLogin(new Date());
                 realm.copyToRealmOrUpdate(user);
             }
@@ -90,6 +93,8 @@ public class RealmManager {
         userBean.setUsername(user.getUsername());
         userBean.setPassword(user.getPassword());
         userBean.setDoctor_id(user.getDoctor_id());
+        userBean.setDoctor_username(user.getDoctor_username());
+        userBean.setDoctor_name(user.getDoctor_name());
         userBean.setLastLogin(user.getLastLogin());
         App.setCurrentUser(userBean);
     }
@@ -99,12 +104,14 @@ public class RealmManager {
      * @param id
      * @param doctor_id
      */
-    public void updateDoctor(final int id, final int doctor_id){
+    public void updateDoctor(final int id, final int doctor_id, final String doctor_username, final String doctor_name){
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 User user = getUserById(id);
                 user.setDoctor_id(doctor_id);
+                user.setDoctor_username(doctor_username);
+                user.setDoctor_name(doctor_name);
             }
         });
         //同时更新application里的用户

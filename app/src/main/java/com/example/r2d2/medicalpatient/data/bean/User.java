@@ -12,6 +12,8 @@ public class User {
     private String username;
     private String password;
     private int doctor_id;
+    private String doctor_username;
+    private String doctor_name;
     private Date lastLogin;
 
     public int getId() {
@@ -54,6 +56,22 @@ public class User {
         this.doctor_id = doctor_id;
     }
 
+    public String getDoctor_username() {
+        return doctor_username;
+    }
+
+    public void setDoctor_username(String doctor_username) {
+        this.doctor_username = doctor_username;
+    }
+
+    public String getDoctor_name() {
+        return doctor_name;
+    }
+
+    public void setDoctor_name(String doctor_name) {
+        this.doctor_name = doctor_name;
+    }
+
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -70,6 +88,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", doctor_id=" + doctor_id +
+                ", doctor_username='" + doctor_username + '\'' +
+                ", doctor_name='" + doctor_name + '\'' +
                 ", lastLogin=" + lastLogin +
                 '}';
     }

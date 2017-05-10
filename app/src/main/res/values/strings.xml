@@ -21,4 +21,7 @@
     <string name="search_fail_hint">\t\t不好意思，您查找的医生不存在，请检查输入是否有误，或者联系你的医生</string>
     <string name="add_doc_done">已成功添加医生：医生</string>
     <string name="next">下一步</string>
+
+    <!-- message -->
+    <string name="input_hint">Send message</string>
 </resources>

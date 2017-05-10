@@ -94,7 +94,7 @@ public class DoctorAddPresenter extends BasePresenter<DoctorAddView> {
             public void onNext(@NonNull DoctorAddResponse doctorAddResponse) {
                 if (doctorAddResponse.getStatus().equals("success")) {
                     //添加医生成功后，更新本地用户数据
-                    updateDoctor(App.getCurrentUser().getId(), doctorAddResponse.getDoctor_id());
+                    updateDoctor(App.getCurrentUser().getId(), doctorAddResponse.getDoctor_id(), doctorAddResponse.getDoctor_username(), doctorAddResponse.getDoctor_name());
                     getView().onAddSuccess(doctorAddResponse.getDoctor_name());
                 }else
                     getView().onAddFail();
@@ -120,7 +120,7 @@ public class DoctorAddPresenter extends BasePresenter<DoctorAddView> {
         dataManager.addDoctor(id, doctor_id, observer);
     }
 
-    public void updateDoctor(int id, int doctor_id){
-        realmManager.updateDoctor(id, doctor_id);
+    public void updateDoctor(int id, int doctor_id, String doctor_username, String doctor_name){
+        realmManager.updateDoctor(id, doctor_id, doctor_username, doctor_name);
     }
 }

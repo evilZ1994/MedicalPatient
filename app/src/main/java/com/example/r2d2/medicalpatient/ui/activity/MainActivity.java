@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.api.ApiService;
@@ -26,6 +27,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.NotificationClickEvent;
 
 public class MainActivity extends AppCompatActivity {
     private DataFragment dataFragment;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(this, DataUploadService.class));
 
         init();
+        //注册通知栏点击事件
+        JMessageClient.registerEventReceiver(new MyNotificationClickEvent());
     }
 
     private void init() {
@@ -74,12 +79,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.data:
                         viewPager.setCurrentItem(0);
+                        bottomNavigation.setVisibility(View.VISIBLE);
                         break;
                     case R.id.message:
                         viewPager.setCurrentItem(1);
+                        bottomNavigation.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.mine:
                         viewPager.setCurrentItem(2);
+                        bottomNavigation.setVisibility(View.VISIBLE);
                         break;
                 }
                 return false;
@@ -101,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 menuItem = bottomNavigation.getMenu().getItem(position);
                 menuItem.setChecked(true);
+                if (position == 1){
+                    bottomNavigation.setVisibility(View.INVISIBLE);
+                }else {
+                    bottomNavigation.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -108,5 +121,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     * 通知栏点击事件，跳转到聊天窗口
+     */
+    public class MyNotificationClickEvent{
+        public void onEvent(NotificationClickEvent event){
+            viewPager.setCurrentItem(1);
+        }
     }
 }

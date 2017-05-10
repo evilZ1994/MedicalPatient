@@ -10,6 +10,8 @@ import com.example.r2d2.medicalpatient.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -42,7 +44,7 @@ public class LoginPresenter extends BasePresenter<LoginView>{
         }
     }
 
-    public void login(String username, String password){
+    public void login(final String username, final String password){
         getView().showDialog();
         Observer<LoginResponse> observer = new Observer<LoginResponse>() {
             @Override
@@ -52,12 +54,23 @@ public class LoginPresenter extends BasePresenter<LoginView>{
             }
 
             @Override
-            public void onNext(@NonNull LoginResponse loginResponse) {
+            public void onNext(@NonNull final LoginResponse loginResponse) {
                 String status = loginResponse.getStatus();
                 if (status.equals("success")){
-                    //登陆成功保存用户
-                    //登陆成功后将用户保存到Realm数据库
-                    storeUser(loginResponse);
+                    //JMessage登陆
+                    JMessageClient.login(username, password, new BasicCallback() {
+                        @Override
+                        public void gotResult(int i, String s) {
+                            if (i == 0){
+                                //登陆成功保存用户
+                                //登陆成功后将用户保存到Realm数据库
+                                storeUser(loginResponse);
+                            } else {
+                                getView().hideDialog();
+                                getView().onError(s);
+                            }
+                        }
+                    });
                 } else{
                     getView().hideDialog();
                     getView().onError(loginResponse.getMessage());
