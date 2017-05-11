@@ -101,6 +101,17 @@ public class BluetoothFragment extends BaseFragment implements BluetoothView{
         //启动计时器，10秒后停止搜索
         bluetoothPresenter.startTimer();
     }
+    @OnClick(R.id.jump)
+    void jump(){
+        //对蓝牙状态做一些处理
+        if (bluetoothAdapter!=null && bluetoothAdapter.isEnabled() && bluetoothAdapter.isDiscovering()){
+            bluetoothAdapter.cancelDiscovery();
+        }
+        //跳过设备连接，直接进入主界面
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 
     @Inject
     BluetoothAdapter bluetoothAdapter;

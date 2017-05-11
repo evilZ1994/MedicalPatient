@@ -7,6 +7,7 @@ import com.example.r2d2.medicalpatient.ui.fragment.DoctorAddFragment;
 import com.example.r2d2.medicalpatient.ui.fragment.LoginFragment;
 import com.example.r2d2.medicalpatient.ui.fragment.RegisterFragment;
 import com.example.r2d2.medicalpatient.ui.fragment.main.DataFragment;
+import com.example.r2d2.medicalpatient.ui.fragment.main.MineFragment;
 
 import dagger.Component;
 
@@ -26,4 +27,6 @@ public interface FragmentComponent {
     void inject(BluetoothFragment bluetoothFragment);
 
     void inject(DataFragment dataFragment);
+
+    void inject(MineFragment mineFragment);
 }

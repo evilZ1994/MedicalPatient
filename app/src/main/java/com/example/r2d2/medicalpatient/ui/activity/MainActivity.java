@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.api.ApiService;
@@ -29,6 +30,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
+import dagger.Provides;
 
 public class MainActivity extends AppCompatActivity {
     private DataFragment dataFragment;
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigation;
+
+    //点击返回键时的时间，用于控制双击退出
+    private long mPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +134,25 @@ public class MainActivity extends AppCompatActivity {
     public class MyNotificationClickEvent{
         public void onEvent(NotificationClickEvent event){
             viewPager.setCurrentItem(1);
+        }
+    }
+
+    /**
+     * 重写onBackPressed()方法，设置双击退出，时间差500毫秒
+     */
+    @Override
+    public void onBackPressed() {
+        long mNowTime = System.currentTimeMillis();
+        if (mNowTime - mPressedTime > 500){
+            Toast.makeText(this, "再次点击退出", Toast.LENGTH_SHORT).show();
+            mPressedTime = mNowTime;
+        } else {
+            //退出程序
+            //JMessage登出
+            JMessageClient.logout();
+            //结束程序
+            this.finish();
+            System.exit(0);
         }
     }
 }

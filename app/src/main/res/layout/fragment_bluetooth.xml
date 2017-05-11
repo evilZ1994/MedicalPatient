@@ -143,4 +143,19 @@
             android:layout_height="wrap_content">
         </android.support.v7.widget.ListViewCompat>
     </LinearLayout>
+
+    <RelativeLayout
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/jump"
+            android:text="@string/jump"
+            android:textColor="@color/white"
+            android:background="@drawable/login_button_selector"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.example.r2d2.medicalpatient.injector.component;
 import com.example.r2d2.medicalpatient.injector.module.ActivityModule;
 import com.example.r2d2.medicalpatient.injector.scope.PerActivity;
 import com.example.r2d2.medicalpatient.ui.activity.DataDetailActivity;
+import com.example.r2d2.medicalpatient.ui.activity.mine.MyDoctorActivity;
+import com.example.r2d2.medicalpatient.ui.activity.mine.MyInfoActivity;
 
 import dagger.Component;
 
@@ -13,4 +15,8 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
     void inject(DataDetailActivity dataDetailActivity);
+
+    void inject(MyInfoActivity myInfoActivity);
+
+    void inject(MyDoctorActivity myDoctorActivity);
 }

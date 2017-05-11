@@ -11,13 +11,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        ndk{
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86', 'x86_64', 'mips', 'mips64'
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
         }
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "47006befb871807426651298", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
     buildTypes {
@@ -59,12 +59,12 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-    testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
-    provided 'javax.annotation:javax.annotation-api:1.2'
     compile 'cn.jiguang.sdk:jmessage:2.1.2'
     compile 'cn.jiguang.sdk:jcore:1.1.2'
     compile 'cn.jiguang.imui:chatinput:0.1.0'
     compile 'cn.jiguang.imui:imui:0.1.0'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+    provided 'javax.annotation:javax.annotation-api:1.2'
 }

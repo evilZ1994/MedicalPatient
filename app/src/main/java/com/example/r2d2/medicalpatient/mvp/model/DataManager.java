@@ -3,7 +3,9 @@ package com.example.r2d2.medicalpatient.mvp.model;
 import com.example.r2d2.medicalpatient.api.ApiService;
 import com.example.r2d2.medicalpatient.data.response.DoctorAddResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
+import com.example.r2d2.medicalpatient.data.response.DoctorUserInfoResponse;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
+import com.example.r2d2.medicalpatient.data.response.PatientUserInfoResponse;
 import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
 import com.google.gson.Gson;
 
@@ -106,6 +108,32 @@ public class DataManager {
      */
     public void addDoctor(int id, int doctor_id, Observer<DoctorAddResponse> observer){
         apiService.addDoctor("add", id, doctor_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取用户信息
+     * @param type 用户类型（doctor\patient)
+     * @param id 账户id
+     * @param observer 回调
+     */
+    public void getUserInfo(String type, int id, Observer<PatientUserInfoResponse> observer) {
+        apiService.getUserInfo(type, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取医生信息
+     * @param type 用户类型（doctor\patient)
+     * @param id 账户id
+     * @param observer 回调
+     */
+    public void getDoctorInfo(String type, int id, Observer<DoctorUserInfoResponse> observer){
+        apiService.getDoctorInfo(type, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

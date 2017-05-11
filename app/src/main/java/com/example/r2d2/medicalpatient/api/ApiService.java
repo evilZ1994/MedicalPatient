@@ -3,7 +3,9 @@ package com.example.r2d2.medicalpatient.api;
 import com.example.r2d2.medicalpatient.data.response.DataUploadResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorAddResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
+import com.example.r2d2.medicalpatient.data.response.DoctorUserInfoResponse;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
+import com.example.r2d2.medicalpatient.data.response.PatientUserInfoResponse;
 import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
 
 import io.reactivex.Observable;
@@ -43,4 +45,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("DataUploadServlet")
     Observable<DataUploadResponse> uploadData(@Field("data") String data);
+
+    @GET("GetUserInfoServlet")
+    Observable<PatientUserInfoResponse> getUserInfo(@Query("type") String type,
+                                                    @Query("id") int id);
+
+    @GET("GetUserInfoServlet")
+    Observable<DoctorUserInfoResponse> getDoctorInfo(@Query("type") String type,
+                                                     @Query("id") int id);
+
 }
