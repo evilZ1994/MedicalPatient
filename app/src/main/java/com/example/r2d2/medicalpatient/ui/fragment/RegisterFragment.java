@@ -39,25 +39,33 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     Gson gson;
 
     @BindView(R.id.reg_username)
-    TextInputEditText username;
+    TextInputEditText usernameText;
     @BindView(R.id.reg_name)
-    TextInputEditText name;
+    TextInputEditText nameText;
     @BindView(R.id.reg_pass)
-    TextInputEditText password;
+    TextInputEditText passwordText;
     @BindView(R.id.reg_pass_repeat)
-    TextInputEditText password_repeat;
+    TextInputEditText passwordRepeatText;
     //点击后执行注册操作
     @OnClick(R.id.register)
     void register(){
-        if (password.getText().toString().equals(password_repeat.getText().toString())){
+        String username = usernameText.getText().toString();
+        String password = passwordText.getText().toString();
+        String passwordRepeat = passwordRepeatText.toString();
+        if (username.length()<4){
+            Toast.makeText(getContext(), "用户名长度至少为4", Toast.LENGTH_SHORT).show();
+        }else if (password.length()<4){
+            Toast.makeText(getContext(), "密码长度至少为4", Toast.LENGTH_SHORT).show();
+        }else if (!password.equals(passwordRepeat)){
+            Toast.makeText(getContext(), "两次输入的密码不一致！", Toast.LENGTH_SHORT).show();
+        }else {
             User user = new User();
-            user.setName(name.getText().toString());
-            user.setUsername(username.getText().toString());
-            user.setPassword(password.getText().toString());
+            user.setName(nameText.getText().toString());
+            user.setUsername(username);
+            user.setPassword(password);
             String userString = new Gson().toJson(user);
             registerPresenter.register(userString);
-        } else
-            Toast.makeText(getContext(), "两次输入的密码不一致！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public RegisterFragment() {
