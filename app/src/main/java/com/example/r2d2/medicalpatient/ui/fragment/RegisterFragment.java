@@ -51,13 +51,13 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     void register(){
         String username = usernameText.getText().toString();
         String password = passwordText.getText().toString();
-        String passwordRepeat = passwordRepeatText.toString();
+        String passwordRepeat = passwordRepeatText.getText().toString();
         if (username.length()<4){
             Toast.makeText(getContext(), "用户名长度至少为4", Toast.LENGTH_SHORT).show();
         }else if (password.length()<4){
             Toast.makeText(getContext(), "密码长度至少为4", Toast.LENGTH_SHORT).show();
         }else if (!password.equals(passwordRepeat)){
-            Toast.makeText(getContext(), "两次输入的密码不一致！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
         }else {
             User user = new User();
             user.setName(nameText.getText().toString());
