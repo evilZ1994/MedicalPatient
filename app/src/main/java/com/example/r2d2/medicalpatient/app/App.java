@@ -29,6 +29,8 @@ public class App extends Application {
     //蓝牙数据流，找不到其他方式可以传递给service了
     private InputStream inputStream;
 
+    public static String CHAT_APP_KEY = "09780fed0448c5e7888d42de";
+
     @Override
     public void onCreate() {
         super.onCreate();
