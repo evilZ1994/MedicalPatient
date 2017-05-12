@@ -18,6 +18,7 @@ import com.example.r2d2.medicalpatient.mvp.presenter.RegisterPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.RegisterView;
 import com.example.r2d2.medicalpatient.ui.activity.DoctorAddActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
+import com.example.r2d2.medicalpatient.util.CheckChineseUtil;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -54,7 +55,9 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
         String passwordRepeat = passwordRepeatText.getText().toString();
         if (username.length()<4){
             Toast.makeText(getContext(), "用户名长度至少为4", Toast.LENGTH_SHORT).show();
-        }else if (password.length()<4){
+        } else if (CheckChineseUtil.isContainsChinese(username)){
+            Toast.makeText(getContext(), "用户名只能包含字母或数字", Toast.LENGTH_SHORT).show();
+        } else if (password.length()<4){
             Toast.makeText(getContext(), "密码长度至少为4", Toast.LENGTH_SHORT).show();
         }else if (!password.equals(passwordRepeat)){
             Toast.makeText(getContext(), "两次输入的密码不一致", Toast.LENGTH_SHORT).show();

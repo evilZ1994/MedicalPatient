@@ -11,7 +11,7 @@
     <string name="register">注册</string>
     <string name="commit">提交</string>
     <string name="repeat">重复密码</string>
-    <string name="re_user_hint">用户名</string>
+    <string name="re_user_hint">用户名(字母或数字)</string>
     <string name="re_name_hint">真实姓名</string>
 
     <!-- Add Doctor -->
