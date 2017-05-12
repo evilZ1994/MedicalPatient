@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/simpleWhite"
+    tools:context="com.example.r2d2.medicalpatient.ui.activity.mine.MyInfoActivity">
+
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/info_list"
+        android:divider="@color/simpleWhite"
+        android:dividerHeight="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</android.support.v7.widget.LinearLayoutCompat>

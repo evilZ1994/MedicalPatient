@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/simpleWhite"
+    android:orientation="vertical"
+    tools:context="com.example.r2d2.medicalpatient.ui.activity.DataDetailActivity">
+
+    <LinearLayout
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/current_data"
+            android:text="0"
+            android:textSize="80sp"
+            android:textStyle="bold"
+            android:textColor="@color/simpleBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/data_unit"
+            android:text="Pa"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/data_list"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:divider="@color/simpleWhite"
+        android:dividerHeight="1dp"
+        android:listSelector="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

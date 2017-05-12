@@ -3,6 +3,7 @@ package com.example.r2d2.medicalpatient;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
+        Log.i("test", "test");
         assertEquals("com.example.r2d2.medicalpatient", appContext.getPackageName());
     }
 }
