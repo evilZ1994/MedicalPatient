@@ -65,7 +65,10 @@ public class DataPresenter extends BasePresenter<DataFragment>{
         }
     }
     private List<Data> getDataList(RealmResults<Data> results){
-        int currentMinute = DateUtil.getMinute(new Date());
+        Date now = new Date();
+        int currentMinute = DateUtil.getMinute(now);
+        int currentHour = DateUtil.getHour(now);
+        int currentDay = DateUtil.getDay(now);
         List<Data> list = new ArrayList<>();
         if (results.size()>0) {
             //超过12条数据
@@ -74,7 +77,9 @@ public class DataPresenter extends BasePresenter<DataFragment>{
                     Data data = results.get(i);
                     Date date = DateUtil.stringToDate(data.getCreate_time());
                     int minute = DateUtil.getMinute(date);
-                    if (minute == currentMinute){
+                    int hour = DateUtil.getHour(date);
+                    int day = DateUtil.getDay(date);
+                    if (day==currentDay && hour==currentHour && minute==currentMinute){
                         list.add(data);
                     }
                 }
@@ -93,8 +98,11 @@ public class DataPresenter extends BasePresenter<DataFragment>{
             }else {//数据不足12条,时间起点不确定（第一次与设备连接）
                 List<Data> list2 = new ArrayList<Data>();
                 for (Data data : results){
-                    int minute = DateUtil.getMinute(DateUtil.stringToDate(data.getCreate_time()));
-                    if (minute==currentMinute){
+                    Date date = DateUtil.stringToDate(data.getCreate_time());
+                    int minute = DateUtil.getMinute(date);
+                    int hour = DateUtil.getHour(date);
+                    int day = DateUtil.getDay(date);
+                    if (day==currentDay && hour==currentHour && minute==currentMinute){
                         list2.add(data);
                     }
                 }
