@@ -18,9 +18,9 @@ import java.util.Map;
 public class InfoAdapter extends BaseAdapter {
     private List<Map<String, String>> items;
 
-    private static class ViewHolder{
-        AppCompatTextView title;
-        AppCompatTextView content;
+    public static class ViewHolder{
+        public AppCompatTextView title;
+        public AppCompatTextView content;
     }
 
     public InfoAdapter(List<Map<String, String>> items) {

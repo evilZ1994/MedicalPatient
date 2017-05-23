@@ -25,4 +25,8 @@
     <!-- message -->
     <string name="input_hint">Send message</string>
     <string name="jump">跳过</string>
+
+    <!-- update info dialog -->
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
 </resources>

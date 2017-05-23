@@ -7,6 +7,7 @@ import com.example.r2d2.medicalpatient.data.response.DoctorUserInfoResponse;
 import com.example.r2d2.medicalpatient.data.response.LoginResponse;
 import com.example.r2d2.medicalpatient.data.response.PatientUserInfoResponse;
 import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
+import com.example.r2d2.medicalpatient.data.response.UpdateInfoResponse;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -54,4 +55,9 @@ public interface ApiService {
     Observable<DoctorUserInfoResponse> getDoctorInfo(@Query("type") String type,
                                                      @Query("id") int id);
 
+    @GET("InfoChangeServlet")
+    Observable<UpdateInfoResponse> updateInfo(@Query("type") String type,
+                                              @Query("id") int id,
+                                              @Query("tag") String tag,
+                                              @Query("content") String content);
 }

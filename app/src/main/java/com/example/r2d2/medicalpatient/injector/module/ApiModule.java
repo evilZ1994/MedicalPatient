@@ -25,11 +25,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class ApiModule {
-    String baseUrl = "http://172.18.61.199:8080/MedicalProjectServer/";
+    String baseUrl = "http://172.23.21.14:8080/MedicalProjectServer/";
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(@PerApplication Context context){
+    OkHttpClient provideOkHttpClient(){
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(15 * 1000L, TimeUnit.MILLISECONDS)//15
                 .readTimeout(20 * 1000L, TimeUnit.MILLISECONDS)//20
