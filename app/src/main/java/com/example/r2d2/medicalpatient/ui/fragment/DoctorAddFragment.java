@@ -2,9 +2,7 @@ package com.example.r2d2.medicalpatient.ui.fragment;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -30,7 +28,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +107,7 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_doctor_add, container, false);
+        View view =  inflater.inflate(R.layout.fragment_doctor_bind, container, false);
         ButterKnife.bind(this, view);
         getFragmentComponent().inject(this);
         doctorAddPresenter.attachView(this);

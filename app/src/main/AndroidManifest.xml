@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.DoctorAddActivity" />
+        <activity android:name=".ui.activity.DoctorBindActivity" />
         <activity android:name=".ui.activity.BluetoothActivity" />
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.DataDetailActivity" />

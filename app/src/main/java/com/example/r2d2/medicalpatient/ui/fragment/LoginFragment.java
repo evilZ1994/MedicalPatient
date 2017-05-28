@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,10 @@ import android.widget.Toast;
 
 import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.app.App;
-import com.example.r2d2.medicalpatient.data.realm.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.LoginPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.LoginView;
 import com.example.r2d2.medicalpatient.ui.activity.BluetoothActivity;
-import com.example.r2d2.medicalpatient.ui.activity.DoctorAddActivity;
+import com.example.r2d2.medicalpatient.ui.activity.DoctorBindActivity;
 import com.example.r2d2.medicalpatient.ui.activity.RegisterActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 
@@ -26,7 +24,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 public class LoginFragment extends BaseFragment implements LoginView {
     private ProgressDialog progressDialog;
@@ -96,7 +93,7 @@ public class LoginFragment extends BaseFragment implements LoginView {
     }
 
     private void gotoDoctorAdd() {
-        Intent intent = new Intent(getContext(), DoctorAddActivity.class);
+        Intent intent = new Intent(getContext(), DoctorBindActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

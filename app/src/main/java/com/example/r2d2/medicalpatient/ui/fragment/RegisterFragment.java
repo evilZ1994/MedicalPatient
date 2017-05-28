@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import com.example.r2d2.medicalpatient.R;
 import com.example.r2d2.medicalpatient.data.request.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.RegisterPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.RegisterView;
-import com.example.r2d2.medicalpatient.ui.activity.DoctorAddActivity;
+import com.example.r2d2.medicalpatient.ui.activity.DoctorBindActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 import com.example.r2d2.medicalpatient.util.CheckChineseUtil;
 import com.google.gson.Gson;
@@ -26,7 +25,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -124,7 +122,7 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     }
 
     private void gotoDoctorAdd() {
-        Intent intent = new Intent(getContext(), DoctorAddActivity.class);
+        Intent intent = new Intent(getContext(), DoctorBindActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

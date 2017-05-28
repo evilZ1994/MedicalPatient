@@ -52,13 +52,15 @@ public class MainActivity extends AppCompatActivity {
     //点击返回键时的时间，用于控制双击退出
     private long mPressedTime = 0;
 
+    public static MainActivity instance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         startService(new Intent(this, DataUploadService.class));
-
+        instance = this;
         init();
         //注册通知栏点击事件
         JMessageClient.registerEventReceiver(new MyNotificationClickEvent());

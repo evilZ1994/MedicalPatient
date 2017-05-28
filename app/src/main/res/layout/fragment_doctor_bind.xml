@@ -102,7 +102,7 @@
                 android:gravity="right|center_vertical">
                 <Button
                     android:id="@+id/add"
-                    android:text="添加"
+                    android:text="@string/bind"
                     android:textColor="@color/white"
                     android:background="@drawable/add_button_selector"
                     android:layout_width="60dp"
