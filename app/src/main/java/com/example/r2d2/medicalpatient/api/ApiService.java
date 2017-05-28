@@ -55,9 +55,10 @@ public interface ApiService {
     Observable<DoctorUserInfoResponse> getDoctorInfo(@Query("type") String type,
                                                      @Query("id") int id);
 
-    @GET("InfoChangeServlet")
-    Observable<UpdateInfoResponse> updateInfo(@Query("type") String type,
-                                              @Query("id") int id,
-                                              @Query("tag") String tag,
-                                              @Query("content") String content);
+    @FormUrlEncoded
+    @POST("InfoChangeServlet")
+    Observable<UpdateInfoResponse> updateInfo(@Field("type") String type,
+                                              @Field("id") int id,
+                                              @Field("tag") String tag,
+                                              @Field("content") String content);
 }

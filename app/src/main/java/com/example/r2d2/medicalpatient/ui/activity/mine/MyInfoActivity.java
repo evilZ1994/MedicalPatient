@@ -1,8 +1,12 @@
 package com.example.r2d2.medicalpatient.ui.activity.mine;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ListViewCompat;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -48,6 +52,8 @@ public class MyInfoActivity extends BaseActivity implements UserInfoView{
         ButterKnife.bind(this);
         presenter.attachView(this);
 
+        setTitle("我的信息");
+
         //初始化adapter
         adapter = new InfoAdapter(items);
         //添加adapter
@@ -56,7 +62,7 @@ public class MyInfoActivity extends BaseActivity implements UserInfoView{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final InfoAdapter.ViewHolder viewHolder = (InfoAdapter.ViewHolder) view.getTag();
-                Map<String, String> item = (Map<String, String>)adapter.getItem(position);
+                final Map<String, String> item = (Map<String, String>)adapter.getItem(position);
                 if (!item.get("tag").equals("username")){
                     //Dialog修改完成后的回调操作，更新这个Item的值
                     Consumer<UpdateInfoResponse> consumer = new Consumer<UpdateInfoResponse>() {
@@ -65,10 +71,16 @@ public class MyInfoActivity extends BaseActivity implements UserInfoView{
                             String result = response.getStatus();
                             if (result.equals("success")){
                                 viewHolder.content.setText(response.getContent());
+                                //姓名修改后要将修改后的值返回前一个activity
+                                if (item.get("tag").equals("name")){
+                                    Intent intent = new Intent();
+                                    intent.putExtra("name", response.getContent());
+                                    setResult(1, intent);
+                                }
                             }
                         }
                     };
-                    PatientInfoChangeDialog dialog = new PatientInfoChangeDialog(getContext(), R.style.InfoChangeDialogTheme, item.get("tag"), item.get("title"), consumer);
+                    PatientInfoChangeDialog dialog = new PatientInfoChangeDialog(MyInfoActivity.this, R.style.InfoChangeDialogTheme, item.get("tag"), item.get("title"), consumer);
                     dialog.show();
                 }
             }
@@ -106,4 +118,5 @@ public class MyInfoActivity extends BaseActivity implements UserInfoView{
         adapter.setItems(items);
         adapter.notifyDataSetChanged();
     }
+
 }

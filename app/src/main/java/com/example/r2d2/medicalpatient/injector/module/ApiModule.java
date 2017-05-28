@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class ApiModule {
-    String baseUrl = "http://172.23.21.14:8080/MedicalProjectServer/";
+    String baseUrl = "http://192.168.43.22:8080/MedicalProjectServer/";
 
     @Provides
     @Singleton

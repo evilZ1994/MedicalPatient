@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.r2d2.medicalpatient.R;
@@ -189,4 +190,10 @@ public class MessageFragment extends Fragment {
         }
     }
 
+    /**
+     * 返回输入框组件，用于隐藏软键盘
+     */
+    public ChatInputView getChatInputView(){
+        return chatInputView;
+    }
 }

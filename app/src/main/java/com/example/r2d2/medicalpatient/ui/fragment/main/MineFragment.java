@@ -69,7 +69,8 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MyInfoActivity.class);
-                startActivity(intent);
+                //姓名被修改后返回，这里也要修改姓名的显示
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -111,6 +112,14 @@ public class MineFragment extends BaseFragment {
             Map<String, Object> item = adapter.getItem(i);
             Intent intent = new Intent(getContext(), (Class<?>) item.get("target"));
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1){
+            nameText.setText(data.getStringExtra("name"));
         }
     }
 }

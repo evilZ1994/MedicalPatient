@@ -178,15 +178,19 @@ public class DataFragment extends BaseFragment implements DataView{
             switch (id){
                 case R.id.pressure_layout:
                     intent.putExtra("tag", "pressure");
+                    intent.putExtra("title", "压强");
                     break;
                 case R.id.temperature_layout:
                     intent.putExtra("tag", "temperature");
+                    intent.putExtra("title", "温度");
                     break;
                 case R.id.angle_layout:
                     intent.putExtra("tag", "angle");
+                    intent.putExtra("title", "角度");
                     break;
                 case R.id.pulse_layout:
                     intent.putExtra("tag", "pulse");
+                    intent.putExtra("title", "脉搏");
                     break;
             }
             startActivity(intent);

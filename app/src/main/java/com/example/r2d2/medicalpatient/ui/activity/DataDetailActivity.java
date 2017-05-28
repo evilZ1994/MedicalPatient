@@ -20,6 +20,7 @@ import io.realm.RealmResults;
 
 public class DataDetailActivity extends BaseActivity {
     private String tag;
+    private String title;
 
     private DataDetailAdapter adapter;
 
@@ -40,6 +41,9 @@ public class DataDetailActivity extends BaseActivity {
         tag = getIntent().getStringExtra("tag");
         getActivityComponent().inject(this);
         ButterKnife.bind(this);
+
+        title = getIntent().getStringExtra("title");
+        setTitle(title);
 
         showData();
     }

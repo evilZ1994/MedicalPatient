@@ -1,6 +1,8 @@
 package com.example.r2d2.medicalpatient.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.r2d2.medicalpatient.R;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigation;
+    private InputMethodManager inputMethodManager; //软键盘
 
     //点击返回键时的时间，用于控制双击退出
     private long mPressedTime = 0;
@@ -61,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        //软键盘
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         viewPager = (ViewPager)findViewById(R.id.view_pager);
         bottomNavigation = (BottomNavigationView)findViewById(R.id.bottom_navigation);
 
@@ -117,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 1){
                     bottomNavigation.setVisibility(View.INVISIBLE);
                 }else {
+                    //获取输入法打开状态
+                    boolean isOpen = inputMethodManager.isActive();
+                    //如果软键盘已经显示，则隐藏
+                    if (isOpen) {
+                        inputMethodManager.hideSoftInputFromWindow(messageFragment.getChatInputView().getInputView().getWindowToken(), 0);
+                    }
                     bottomNavigation.setVisibility(View.VISIBLE);
                 }
             }

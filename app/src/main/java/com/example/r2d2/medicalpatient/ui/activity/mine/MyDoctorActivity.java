@@ -1,5 +1,6 @@
 package com.example.r2d2.medicalpatient.ui.activity.mine;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ListViewCompat;
@@ -38,6 +39,8 @@ public class MyDoctorActivity extends BaseActivity implements UserInfoView {
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
         presenter.attachView(this);
+
+        setTitle("我的医生");
 
         //初始化adapter
         adapter = new InfoAdapter(items);

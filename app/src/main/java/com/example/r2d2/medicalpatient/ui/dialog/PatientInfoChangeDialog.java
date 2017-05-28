@@ -53,11 +53,13 @@ public class PatientInfoChangeDialog extends Dialog {
     @OnClick(R.id.ok)
     void clickOk(){
         //点击确定后，修改信息
-        final String content = contentInput.getText().toString();
-        apiService.updateInfo("patient", App.getCurrentUser().getId(),tag, content)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(consumer);
+        String content = contentInput.getText().toString();
+        if (content.length()>0) {
+            apiService.updateInfo("patient", App.getCurrentUser().getId(), tag, content)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(consumer);
+        }
         this.dismiss();
     }
 
