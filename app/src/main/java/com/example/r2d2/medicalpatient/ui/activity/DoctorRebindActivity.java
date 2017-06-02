@@ -1,10 +1,10 @@
-package com.example.r2d2.medicalpatient.ui.fragment;
-
+package com.example.r2d2.medicalpatient.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +20,7 @@ import com.example.r2d2.medicalpatient.app.App;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
 import com.example.r2d2.medicalpatient.mvp.presenter.DoctorAddPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.DoctorAddView;
-import com.example.r2d2.medicalpatient.ui.activity.BluetoothActivity;
-import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
+import com.example.r2d2.medicalpatient.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
@@ -29,10 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
+public class DoctorRebindActivity extends BaseActivity implements DoctorAddView {
+
     private DoctorSearchResponse.DoctorBean doctor;
 
     @Inject
@@ -54,8 +51,6 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
     Button addBtn;
     @BindView(R.id.add_doc_done)
     TextView addDocDone;
-    @BindView(R.id.next)
-    Button nextBtn;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @OnClick(R.id.search_doc_btn)
@@ -69,19 +64,11 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
     @OnClick(R.id.add)
     void add(){
         //改变外观
-        addBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.deepGray));
+        addBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.deepGray));
         //防止重复点击
         addBtn.setEnabled(false);
         showDialog();
         doctorAddPresenter.addDoctor(App.getCurrentUser().getId(), Integer.valueOf(doctor.getId()));
-    }
-    @OnClick(R.id.next)
-    void next(){
-        //跳转到蓝牙界面
-        Intent intent = new Intent(getContext(), BluetoothActivity.class);
-        startActivity(intent);
-        //结束当前Activity
-        getActivity().finish();
     }
 
     //隐藏组件
@@ -89,8 +76,7 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
         docItem.setVisibility(View.INVISIBLE);
         searchFailText.setVisibility(View.INVISIBLE);
         addDocDone.setVisibility(View.INVISIBLE);
-        nextBtn.setVisibility(View.INVISIBLE);
-        addBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.simpleBlue));
+        addBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.simpleBlue));
     }
     //取消防止按钮重复点击
     private void enableButtons(){
@@ -98,21 +84,14 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
         addBtn.setEnabled(true);
     }
 
-    public DoctorAddFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_doctor_bind, container, false);
-        ButterKnife.bind(this, view);
-        getFragmentComponent().inject(this);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rebind_doctor);
+        ButterKnife.bind(this);
+        getActivityComponent().inject(this);
         doctorAddPresenter.attachView(this);
-
-        return view;
     }
 
     @Override
@@ -122,7 +101,7 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
 
     @Override
     public void onError(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         hideDialog();
     }
 
@@ -160,19 +139,18 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
 
     @Override
     public void onAddSuccess(String name) {
-        Toast.makeText(getContext(), "绑定成功！", Toast.LENGTH_SHORT).show();
-        //显示绑定成功的提示信息，显示下一步按钮
+        Toast.makeText(this, "绑定成功！", Toast.LENGTH_SHORT).show();
+        //显示绑定成功的提示信息
         addDocDone.setText("已成功绑定医生："+name);
         addDocDone.setVisibility(View.VISIBLE);
-        nextBtn.setVisibility(View.VISIBLE);
         //只取消search按钮保护
         searchBtn.setEnabled(true);
     }
 
     @Override
     public void onAddFail() {
-        Toast.makeText(getContext(), "绑定失败了..稍后再试试吧！", Toast.LENGTH_SHORT).show();
-        addBtn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.simpleBlue));
+        Toast.makeText(this, "绑定失败了..稍后再试试吧！", Toast.LENGTH_SHORT).show();
+        addBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.simpleBlue));
         addBtn.setEnabled(true);
         //取消按钮保护
         enableButtons();
@@ -181,11 +159,5 @@ public class DoctorAddFragment extends BaseFragment implements DoctorAddView{
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        doctorAddPresenter.detachView();
     }
 }

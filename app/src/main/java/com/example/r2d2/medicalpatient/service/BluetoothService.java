@@ -50,14 +50,10 @@ public class BluetoothService extends Service {
             public void accept(@NonNull String s) throws Exception {
                 //蓝牙连接断开
                 //do something
-                showDialog();
+
             }
         };
         bluetoothManager.readData(inputStream, consumer);
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    private void showDialog(){
-        ProgressDialog.show(this, "蓝牙", "连接断开", true, true).show();
     }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.StyleRes;
 import android.support.design.widget.TextInputEditText;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.r2d2.medicalpatient.R;
@@ -82,5 +83,10 @@ public class PatientInfoChangeDialog extends Dialog {
         DaggerApiComponent.builder().build().inject(this);
 
         titleText.setText("修改"+title);
+        //获取焦点并弹出软键盘
+        contentInput.setFocusable(true);
+        contentInput.setFocusableInTouchMode(true);
+        contentInput.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 }

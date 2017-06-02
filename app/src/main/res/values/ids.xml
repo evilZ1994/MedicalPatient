@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    解决
+    Rendering Problems
+
+    Couldn't resolve resource @id/visible
+
+    Tip: Try to refresh the layout.-->
+<resources>
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+</resources>

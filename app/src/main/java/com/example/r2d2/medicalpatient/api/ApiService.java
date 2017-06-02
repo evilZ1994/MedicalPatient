@@ -1,6 +1,6 @@
 package com.example.r2d2.medicalpatient.api;
 
-import com.example.r2d2.medicalpatient.data.response.DataUploadResponse;
+import com.example.r2d2.medicalpatient.data.response.CommonResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorAddResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorUserInfoResponse;
@@ -10,7 +10,6 @@ import com.example.r2d2.medicalpatient.data.response.RegisterResponse;
 import com.example.r2d2.medicalpatient.data.response.UpdateInfoResponse;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -45,7 +44,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("DataUploadServlet")
-    Observable<DataUploadResponse> uploadData(@Field("data") String data);
+    Observable<CommonResponse> uploadData(@Field("data") String data);
 
     @GET("GetUserInfoServlet")
     Observable<PatientUserInfoResponse> getUserInfo(@Query("type") String type,
@@ -61,4 +60,11 @@ public interface ApiService {
                                               @Field("id") int id,
                                               @Field("tag") String tag,
                                               @Field("content") String content);
+
+    @FormUrlEncoded
+    @POST("PassChangeServlet")
+    Observable<CommonResponse> changePass(@Field("type") String type,
+                                          @Field("id") int id,
+                                          @Field("old_pass") String old_pass,
+                                          @Field("new_pass") String new_pass);
 }

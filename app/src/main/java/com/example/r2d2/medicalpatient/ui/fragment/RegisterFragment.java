@@ -16,6 +16,7 @@ import com.example.r2d2.medicalpatient.data.request.User;
 import com.example.r2d2.medicalpatient.mvp.presenter.RegisterPresenter;
 import com.example.r2d2.medicalpatient.mvp.view.RegisterView;
 import com.example.r2d2.medicalpatient.ui.activity.DoctorBindActivity;
+import com.example.r2d2.medicalpatient.ui.activity.LoginActivity;
 import com.example.r2d2.medicalpatient.ui.base.BaseFragment;
 import com.example.r2d2.medicalpatient.util.CheckChineseUtil;
 import com.google.gson.Gson;
@@ -122,6 +123,9 @@ public class RegisterFragment extends BaseFragment implements RegisterView{
     }
 
     private void gotoDoctorAdd() {
+        //结束LoginActivity
+        LoginActivity.instance.finish();
+        //跳转
         Intent intent = new Intent(getContext(), DoctorBindActivity.class);
         startActivity(intent);
         getActivity().finish();

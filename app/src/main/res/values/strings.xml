@@ -15,7 +15,8 @@
     <string name="re_name_hint">真实姓名</string>
 
     <!-- Add Doctor -->
-    <string name="search_doc">请绑定你的医生后点击下一步</string>
+    <string name="search_doc">请输入医生用户名进行查找</string>
+    <string name="bind_hint">请绑定你的医生后点击下一步</string>
     <string name="search_doc_hint">医生用户名/手机号/电子邮箱</string>
     <string name="search">查找</string>
     <string name="search_fail_hint">\t\t不好意思，您查找的医生不存在，请检查输入是否有误，或者联系你的医生</string>
@@ -29,6 +30,12 @@
     <!-- update info dialog -->
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
+
     <string name="bind">绑定</string>
     <string name="exit">退出当前账号</string>
+    <string name="rebind">重新绑定医生</string>
+    <string name="change_pass">修改密码</string>
+    <string name="input_current_pass">请输入当前密码</string>
+    <string name="input_new_pass">请输入新密码</string>
+    <string name="repeat_new_pass">请再次输入新密码</string>
 </resources>

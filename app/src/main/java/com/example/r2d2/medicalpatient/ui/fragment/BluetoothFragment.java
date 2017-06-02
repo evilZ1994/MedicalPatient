@@ -247,7 +247,7 @@ public class BluetoothFragment extends BaseFragment implements BluetoothView{
         getActivity().startService(intent);
         Toast.makeText(getContext(), "连接成功，服务启动", Toast.LENGTH_SHORT).show();
         hideDialog();
-        //跳转到主界面
+        //跳转到主界面,MainActivity启动服务
         startActivity(new Intent(getContext(), MainActivity.class));
         getActivity().finish();
     }

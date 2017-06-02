@@ -1,6 +1,7 @@
 package com.example.r2d2.medicalpatient.mvp.model;
 
 import com.example.r2d2.medicalpatient.api.ApiService;
+import com.example.r2d2.medicalpatient.data.response.CommonResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorAddResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorSearchResponse;
 import com.example.r2d2.medicalpatient.data.response.DoctorUserInfoResponse;
@@ -134,6 +135,20 @@ public class DataManager {
      */
     public void getDoctorInfo(String type, int id, Observer<DoctorUserInfoResponse> observer){
         apiService.getDoctorInfo(type, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 修改密码
+     * @param id 用户id
+     * @param oldPass 原密码
+     * @param newPass 新密码
+     * @param observer 回调
+     */
+    public void updatePassword(int id, String oldPass, String newPass, Observer<CommonResponse> observer){
+        apiService.changePass(TYPE, id, oldPass, newPass)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

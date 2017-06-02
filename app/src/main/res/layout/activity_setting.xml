@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:background="@color/simpleWhite"
     tools:context="com.example.r2d2.medicalpatient.ui.activity.mine.SettingActivity">
 
-    <android.support.v7.widget.AppCompatButton
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/rebind"
+        android:text="@string/rebind"
+        android:textSize="18sp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/change_pass"
+        android:text="@string/change_pass"
+        android:textSize="18sp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/exit"
         android:text="@string/exit"
+        android:textSize="18sp"
+        android:textColor="@color/light_red"
+        android:background="@color/white"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</android.support.v7.widget.LinearLayoutCompat>

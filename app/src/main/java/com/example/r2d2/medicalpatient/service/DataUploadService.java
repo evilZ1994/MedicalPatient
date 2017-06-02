@@ -3,15 +3,13 @@ package com.example.r2d2.medicalpatient.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.r2d2.medicalpatient.api.ApiService;
 import com.example.r2d2.medicalpatient.app.App;
 import com.example.r2d2.medicalpatient.data.realm.DataCache;
-import com.example.r2d2.medicalpatient.data.response.DataUploadResponse;
-import com.google.gson.Gson;
+import com.example.r2d2.medicalpatient.data.response.CommonResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,18 +85,18 @@ public class DataUploadService extends Service {
                 }
                 dataArray.put(data);
             }
-            Observable<DataUploadResponse> observable = apiService.uploadData(dataArray.toString());
+            Observable<CommonResponse> observable = apiService.uploadData(dataArray.toString());
             observable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<DataUploadResponse>() {
+                    .subscribe(new Observer<CommonResponse>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(@NonNull DataUploadResponse dataUploadResponse) {
-                            if (dataUploadResponse.getStatus().equals("success")){
+                        public void onNext(@NonNull CommonResponse commonResponse) {
+                            if (commonResponse.getStatus().equals("success")){
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
                                     public void execute(Realm realm) {

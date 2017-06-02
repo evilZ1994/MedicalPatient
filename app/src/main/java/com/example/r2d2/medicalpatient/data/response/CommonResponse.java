@@ -4,7 +4,7 @@ package com.example.r2d2.medicalpatient.data.response;
  * Created by Lollipop on 2017/5/7.
  */
 
-public class DataUploadResponse {
+public class CommonResponse {
     /**
      * status : success
      */

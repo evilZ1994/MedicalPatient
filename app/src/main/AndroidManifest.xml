@@ -45,7 +45,9 @@
         <activity android:name=".ui.activity.DataDetailActivity" />
         <activity android:name=".ui.activity.mine.MyDoctorActivity" />
         <activity android:name=".ui.activity.mine.SettingActivity" />
-        <activity android:name=".ui.activity.mine.MyInfoActivity"></activity>
+        <activity android:name=".ui.activity.mine.MyInfoActivity" />
+        <activity android:name=".ui.activity.ChangePassActivity" />
+        <activity android:name=".ui.activity.DoctorRebindActivity"></activity>
     </application>
 
 </manifest>

@@ -165,6 +165,7 @@ public class BluetoothManager {
                 socket.connect();
                 InputStream inputStream = socket.getInputStream();
                 if (socket.isConnected() && inputStream!=null) {
+                    App.getApp().setSocket(socket);
                     e.onNext(inputStream);
                     e.onComplete();
                 }else
@@ -183,11 +184,15 @@ public class BluetoothManager {
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                App.tag = 1;
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                App.getApp().setInputStreamReader(inputStreamReader);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                App.getApp().setReader(reader);
                 String line;
                 line = reader.readLine();
                 Realm realm = Realm.getInstance(new RealmConfiguration.Builder().name("medical.realm").deleteRealmIfMigrationNeeded().build());
-                while (reader!=null && (line=reader.readLine())!=null){
+                while (App.tag == 1 && (line=reader.readLine())!=null){
                     final JSONObject dataJson = new JSONObject(line);
                     //写入数据库
                     realm.executeTransaction(new Realm.Transaction() {

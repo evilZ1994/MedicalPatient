@@ -17,7 +17,5 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //销毁前结束LoginActivity
-        LoginActivity.instance.finish();
     }
 }
